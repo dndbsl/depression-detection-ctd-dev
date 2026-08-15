@@ -1,0 +1,8 @@
+cache/
+checkpoints/
+manifests/
+wandb/
+results_*.json
+__pycache__/
+*.pyc
+*.pt

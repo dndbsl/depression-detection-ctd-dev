@@ -1,0 +1,22 @@
+[
+  {
+    "seed": 43,
+    "wavlm_thr": 0.6,
+    "single_wavlm_test": 0.5181030086690463,
+    "single_roberta_test": 0.6309458720612356,
+    "single_ctd_test": 0.6309458720612356,
+    "best_fusion": "wconvex[wavlm+ctd]",
+    "best_fusion_dev": 0.8096153846153846,
+    "best_fusion_test": 0.44001991040318567
+  },
+  {
+    "seed": 44,
+    "wavlm_thr": 0.65,
+    "single_wavlm_test": 0.5454545454545454,
+    "single_roberta_test": 0.6309458720612356,
+    "single_ctd_test": 0.6309458720612356,
+    "best_fusion": "wconvex[roberta+ctd]",
+    "best_fusion_dev": 0.8035714285714286,
+    "best_fusion_test": 0.6693046919163369
+  }
+]

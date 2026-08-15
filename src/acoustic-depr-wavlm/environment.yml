@@ -1,0 +1,17 @@
+name: acoustic-depr
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu124
+      - torch==2.5.1
+      - torchaudio==2.5.1
+      - transformers==4.46.3
+      - numpy==1.26.4
+      - pandas==2.2.3
+      - scikit-learn==1.5.2
+      - soundfile==0.12.1
+      - wandb==0.18.7
+      - tqdm==4.67.1

@@ -1,0 +1,33 @@
+experiment_name: roberta-large_frozen
+encoder: roberta-large
+training_strategy: frozen
+# data_root / labels_root / processed_dir fall back to the defaults in
+# training/config.py: $DAIC_WOZ_ROOT/{data,labels} and <project>/datasets/processed.
+data:
+  max_length: 512
+model:
+  dropout: 0.1
+  gradient_checkpointing: true
+  pooling: mean
+  mil_pooling: mean
+  standardize_features: true
+training:
+  epochs: 200
+  encoder_lr: 1.0e-3
+  classifier_lr: 1.0e-3
+  weight_decay: 0.01
+  seeds: [42, 43, 44]
+  physical_batch_size: auto
+  max_physical_batch_size: 4
+  min_effective_batch_size: 32
+  num_workers: 0
+  deterministic: true
+  require_cuda: true
+  eval_batch_size: 1
+wandb:
+  enabled: true
+  project: semantic-depr-roberta
+  entity:
+  mode: online
+  log_artifacts: true
+
