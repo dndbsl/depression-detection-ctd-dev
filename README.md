@@ -148,20 +148,3 @@ your licensed copy by the pipeline above.
 `src/acoustic-depr-wavlm/third_party/confidence_intervals` is vendored from
 [luferrer/ConfidenceIntervals](https://github.com/luferrer/ConfidenceIntervals)
 under its own license (see the bundled LICENSE/NOTICE).
-
-## Citation
-
-If you use this code, please cite the [arXiv paper](https://arxiv.org/abs/2607.03744):
-
-```bibtex
-@misc{kang2026ctd,
-  title         = {Can Conversational Temporal Dynamics Improve Depression Detection in Dyads?
-                   A Preliminary Investigation in Multi-Modality Perspectives},
-  author        = {Kang, Hanie and Chou, Huang-Cheng and Kadiri, Sudarsana Reddy and Narayanan, Shrikanth},
-  year          = {2026},
-  eprint        = {2607.03744},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.AI},
-  url           = {https://arxiv.org/abs/2607.03744}
-}
-```
