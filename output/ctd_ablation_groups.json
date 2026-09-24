@@ -1,0 +1,204 @@
+{
+  "protocol": "Identical deployed protocol (LogReg L2, class_weight='balanced'): fit train -> select C on dev (balanced accuracy) -> refit train+dev -> test once.",
+  "configs": {
+    "all24": {
+      "n_features": 24,
+      "selected_C": 0.3,
+      "dev": {
+        "balanced_accuracy": 0.7559523809523809,
+        "macro_f1": 0.7461538461538462,
+        "f1_depressed": 0.6923076923076923,
+        "roc_auc": 0.8412698412698413,
+        "accuracy": 0.7575757575757576
+      },
+      "test": {
+        "balanced_accuracy": {
+          "point": 0.6405529953917051,
+          "ci_low": 0.48156468680662223,
+          "ci_high": 0.7914734222134601
+        },
+        "macro_f1": {
+          "point": 0.6309458720612356,
+          "ci_low": 0.4722080571137175,
+          "ci_high": 0.7710570944036179
+        },
+        "f1_depressed": {
+          "point": 0.5161290322580645,
+          "ci_low": 0.2727272727272727,
+          "ci_high": 0.7058823529411765
+        },
+        "roc_auc": {
+          "point": 0.6566820276497696,
+          "ci_low": 0.46119935788278693,
+          "ci_high": 0.8318965517241379
+        },
+        "accuracy": {
+          "point": 0.6666666666666666
+        }
+      }
+    },
+    "no_ask": {
+      "n_features": 15,
+      "selected_C": 1.0,
+      "dev": {
+        "balanced_accuracy": 0.8392857142857142,
+        "macro_f1": 0.8139097744360901,
+        "f1_depressed": 0.7857142857142857,
+        "roc_auc": 0.9206349206349206,
+        "accuracy": 0.8181818181818182
+      },
+      "test": {
+        "balanced_accuracy": {
+          "point": 0.6601382488479263,
+          "ci_low": 0.5,
+          "ci_high": 0.8071428571428572
+        },
+        "macro_f1": {
+          "point": 0.6411483253588517,
+          "ci_low": 0.4815287001897533,
+          "ci_high": 0.7785675232367414
+        },
+        "f1_depressed": {
+          "point": 0.5454545454545454,
+          "ci_low": 0.3198947368421053,
+          "ci_high": 0.7272727272727273
+        },
+        "roc_auc": {
+          "point": 0.684331797235023,
+          "ci_low": 0.4915763079425319,
+          "ci_high": 0.8580267767767767
+        },
+        "accuracy": {
+          "point": 0.6666666666666666
+        }
+      }
+    },
+    "res_only": {
+      "n_features": 8,
+      "selected_C": 1.0,
+      "dev": {
+        "balanced_accuracy": 0.6071428571428572,
+        "macro_f1": 0.6071428571428572,
+        "f1_depressed": 0.5,
+        "roc_auc": 0.6984126984126984,
+        "accuracy": 0.6363636363636364
+      },
+      "test": {
+        "balanced_accuracy": {
+          "point": 0.5172811059907834,
+          "ci_low": 0.3674089068825911,
+          "ci_high": 0.6740929027113237
+        },
+        "macro_f1": {
+          "point": 0.5166760881854155,
+          "ci_low": 0.3640474844544941,
+          "ci_high": 0.6605603448275862
+        },
+        "f1_depressed": {
+          "point": 0.3448275862068966,
+          "ci_low": 0.10513157894736842,
+          "ci_high": 0.5555555555555556
+        },
+        "roc_auc": {
+          "point": 0.456221198156682,
+          "ci_low": 0.2820378151260504,
+          "ci_high": 0.6418312500000001
+        },
+        "accuracy": {
+          "point": 0.5777777777777777
+        }
+      }
+    },
+    "ask_only": {
+      "n_features": 9,
+      "selected_C": 0.01,
+      "dev": {
+        "balanced_accuracy": 0.5952380952380952,
+        "macro_f1": 0.593505039193729,
+        "f1_depressed": 0.42105263157894735,
+        "roc_auc": 0.5317460317460319,
+        "accuracy": 0.6666666666666666
+      },
+      "test": {
+        "balanced_accuracy": {
+          "point": 0.6082949308755761,
+          "ci_low": 0.4527147919285016,
+          "ci_high": 0.7573794541855202
+        },
+        "macro_f1": {
+          "point": 0.5933014354066986,
+          "ci_low": 0.4444444444444444,
+          "ci_high": 0.7293603061782394
+        },
+        "f1_depressed": {
+          "point": 0.48484848484848486,
+          "ci_low": 0.25806451612903225,
+          "ci_high": 0.6666666666666666
+        },
+        "roc_auc": {
+          "point": 0.6152073732718895,
+          "ci_low": 0.4264516806722689,
+          "ci_high": 0.79624837003767
+        },
+        "accuracy": {
+          "point": 0.6222222222222222
+        }
+      }
+    },
+    "no_cross": {
+      "n_features": 17,
+      "selected_C": 0.1,
+      "dev": {
+        "balanced_accuracy": 0.6964285714285714,
+        "macro_f1": 0.6996966632962589,
+        "f1_depressed": 0.6086956521739131,
+        "roc_auc": 0.6626984126984128,
+        "accuracy": 0.7272727272727273
+      },
+      "test": {
+        "balanced_accuracy": {
+          "point": 0.5403225806451613,
+          "ci_low": 0.3810096153846154,
+          "ci_high": 0.7077843468468468
+        },
+        "macro_f1": {
+          "point": 0.5273109243697479,
+          "ci_low": 0.38041815400305967,
+          "ci_high": 0.6691176470588236
+        },
+        "f1_depressed": {
+          "point": 0.4117647058823529,
+          "ci_low": 0.1935483870967742,
+          "ci_high": 0.6046511627906976
+        },
+        "roc_auc": {
+          "point": 0.5829493087557605,
+          "ci_low": 0.3939447004608295,
+          "ci_high": 0.7672475876259401
+        },
+        "accuracy": {
+          "point": 0.5555555555555556
+        }
+      }
+    }
+  },
+  "primary_ablation_paired_bootstrap": {
+    "comparison": "all24 - no_ask",
+    "metric": "macro_f1",
+    "dev": {
+      "point": -0.06775592828224397,
+      "ci_low": -0.21609156570363464,
+      "ci_high": 0.0830210643015521,
+      "excludes_zero": false
+    },
+    "test": {
+      "point": -0.010202453297616043,
+      "ci_low": -0.08862775215229186,
+      "ci_high": 0.05442204853969557,
+      "excludes_zero": false
+    },
+    "verdict": "No clear difference detected: the 'all24' vs 'no_ask' macro-F1 paired bootstrap 95% CI includes zero on dev and test. This does not establish equivalence or remove interviewer confounding."
+  },
+  "multiplicity_note": "5 configurations each evaluated once on test = 5 looks at the test set, uncorrected. Dev is primary for all ablation comparisons; test is reported for reference only. No hyperparameter was re-tuned on test.",
+  "rebuttal_discrepancy_note": "These numbers differ from the SLT rebuttal's no_ask figures (dev .752 / test .661): the rebuttal reused the full model's C=0.3 for the ablation configs instead of reselecting C on dev per config. This script reselects C independently for every config, per plan-preflight.md Step 4 ('identical deployed protocol' includes the selection step, not just the fitted coefficients). Reselecting gives no_ask C=1.0, dev macro-F1 0.814, test macro-F1 0.641 -- the test delta versus all24 shrinks from the rebuttal's claimed +.030 to +.010. The paired interval does not establish equivalence."
+}

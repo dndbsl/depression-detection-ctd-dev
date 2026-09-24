@@ -1,0 +1,97 @@
+{
+  "compute": {
+    "cuda_available": false,
+    "transformers_installed": false
+  },
+  "artifact_search": {
+    "roots": [
+      "/home/exouser/projects",
+      "/home/exouser/data",
+      "/home/exouser/.cache"
+    ],
+    "patterns": [
+      "*.npz",
+      "*.pt",
+      "*.pth",
+      "*.safetensors",
+      "*predictions*.csv"
+    ],
+    "matches": []
+  },
+  "recorded_sources": {
+    "output/fusion_wavlm_seed44.json": {
+      "commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31",
+      "sha256": "b2be0ece82cc8c10407a1a2925d2f85185cf6eb48527fa3260fe003a9a8ff240"
+    },
+    "output/mean_prob_seed44.json": {
+      "commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31",
+      "sha256": "912eb369330b7b074a9f101ecd13029345ae88cd37acf14449659477c9f4d374"
+    },
+    "output/summary_wavlm_seeds.json": {
+      "commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31",
+      "sha256": "6b55281a2765d6ce2390039344fd10f684b522dd06eb403685a2562d377d2761"
+    },
+    "RESULTS.md": {
+      "commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31",
+      "sha256": "bc889034f2efef1fa0d4e676f58469d0d50281c890245d583c12ccd15017eb68"
+    },
+    "reviews/slt2026/reviews.md": {
+      "commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31",
+      "sha256": "e3d069a0791deae890d0996ba47c0d430ea0ce653646108d614dd746066a0e1a"
+    }
+  },
+  "neural_rerun": "Not rerun: frozen embeddings, selected checkpoints and per-session predictions unavailable. No replacement seed or encoder run generated.",
+  "E6": {
+    "status": "scoped_out",
+    "reason": "No raw frozen RoBERTa cache, encoder weights, checkpoint, or predictions found. Downloading the large encoder and rebuilding raw embeddings and nested heads is beyond this bounded CPU revision; aggregate metrics cannot support nested fusion.",
+    "nested_results": null
+  },
+  "SLT06": {
+    "status": "context_only",
+    "paper": "Agarwal, Dias and Dollfus (CLPsych 2024)",
+    "source": "https://aclanthology.org/2024.clpsych-1.9.pdf",
+    "verified_utc_date": "2026-09-24",
+    "source_tables": [
+      1,
+      2
+    ],
+    "cohort": [
+      107,
+      35,
+      47
+    ],
+    "test_macro_f1": 0.8,
+    "input": "patient and therapist text",
+    "limitation": "Published result; no matched-protocol reproduction. Author implementation and sentence-encoder artifacts are not available locally; retraining is outside this pass."
+  },
+  "SLT08": {
+    "status": "probe_specific_disclosure",
+    "wavlm_selected_seed": 44,
+    "selection": "best test macro-F1 at dev-tuned threshold",
+    "source": "49520dc65987cf1f686e4aa28e0fd742778f6b31:RESULTS.md sections 2.1, 2.2",
+    "wavlm_test_seed_mean": 0.506,
+    "wavlm_test_seed_sd": 0.034,
+    "wavlm_n_seeds": 6,
+    "roberta_test_seed_mean": 0.604,
+    "roberta_test_seed_sd": 0.025,
+    "roberta_n_seeds": 3,
+    "limitation": "Frozen probe only; zero selected acoustic weight is not acoustic redundancy. A stronger acoustic rerun is not feasible with missing caches/checkpoints."
+  },
+  "fusion_paired_uncertainty": {
+    "status": "recorded_qualitative_only",
+    "source": "49520dc65987cf1f686e4aa28e0fd742778f6b31:reviews/slt2026/reviews.md; paper/revision-history/main-before-review-20260924.tex",
+    "finding": "Paired intervals for fusion minus each component include or touch zero.",
+    "limitation": "No committed numerical paired-CI artifact or underlying predictions found; exact paired limits cannot be regenerated. Do not infer paired uncertainty from overlapping marginal intervals."
+  },
+  "venue": {
+    "source": "https://cmsworkshops.com/ICASSP2027/papers/paper_kit.php",
+    "verified_utc_date": "2026-09-24",
+    "max_content_pages": 4,
+    "max_total_pages": 5,
+    "review": "not double blind unless otherwise specified",
+    "deadline_check": "CFP lists September 23, 2026; paper kit lists September 16. Verify existing submission/access and applicable timezone; no submission action taken.",
+    "cfp_source": "https://2027.ieeeicassp.org/call-for-papers/",
+    "author_policy_source": "https://2027.ieeeicassp.org/sps-policies/",
+    "author_statements": "Ethics compliance and funding/conflict statements required; author facts requested asynchronously and not inferred."
+  }
+}

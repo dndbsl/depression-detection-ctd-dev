@@ -1,0 +1,246 @@
+% ICASSP 2027 paper; uses official template style:
+%   spconf.sty  - ICASSP/ICIP LaTeX style file
+%   IEEEbib.bst - IEEE bibliography style file
+% --------------------------------------------------------------------------
+\documentclass{article}
+\usepackage{spconf,amsmath,amssymb,graphicx,hyperref}
+\usepackage{booktabs,multirow,xcolor,pifont,url,orcidlink}
+
+% Checkmark for the modality-combination table.
+\newcommand{\yes}{\ding{51}}
+\newcommand{\no}{}
+
+\title{Conversational Timing for Depression Screening: A Cross-Corpus Study of Predictive Value and Robustness}
+
+\name{Hanie Kang\scalebox{0.75}{\orcidlink{0009-0005-8023-9672}}\textsuperscript{1},
+Huang-Cheng Chou\scalebox{0.75}{\orcidlink{0000-0003-2125-5689}}\textsuperscript{2},
+Sudarsana Reddy Kadiri\scalebox{0.75}{\orcidlink{0000-0001-5806-3053}}\textsuperscript{2},
+Shrikanth Narayanan\scalebox{0.75}{\orcidlink{0000-0002-1052-6204}}\textsuperscript{2}}
+
+\address{\textsuperscript{1}Thomas Lord Department of Computer Science, University of Southern California, USA\\
+\textsuperscript{2}Signal Analysis and Interpretation Laboratory (SAIL), University of Southern California, USA}
+
+\begin{document}
+%
+\maketitle
+%
+\begin{abstract}
+Conversational timing is a compact candidate representation for depression screening, but its predictive value may depend on the interview setting and evaluation split. We study 24 established dyadic timing descriptors alongside frozen acoustic and text encoders on DAIC-WOZ, and examine timing in Mandarin clinical interviews from PDCH. On the DAIC-WOZ test subset, text--timing fusion increases macro-F1 from 0.631 to 0.669, but paired confidence intervals include zero. In nested evaluation on 135 training and development subjects, full CTD reaches mean macro-F1 0.635 versus 0.550 for latency plus interview-structure controls. Removing interviewer-side features lowers this mean to 0.566, contrasting with the original split's ablation. Latency has directionally consistent severity correlations across corpora, but its PDCH association does not survive multiplicity correction. Within-PDCH classification shows no reliable discrimination (ROC-AUC 0.476). These results suggest that CTD contains information beyond simple timing summaries while exposing dependence on interviewer features and evaluation setting; they do not establish detector transfer or a reliable fusion advantage.
+\end{abstract}
+
+\begin{keywords}
+depression screening, conversational timing, turn-taking, multimodal fusion, cross-corpus evaluation
+\end{keywords}
+
+\section{Introduction}
+Speech-based depression screening is studied as a low-cost complement to clinical assessment~\cite{valstar2013avec,valstar2016avec,cummins2015review}. Most systems model acoustic characteristics or lexical content. Clinical interviews also have a dyadic structure: an interviewer asks and a participant responds. Response delays, pauses, and turn durations may carry information that acoustic and semantic representations do not retain explicitly~\cite{yamamoto2020timing,mundt2012vocal,aldeneh2019mood}.
+
+However, timing is jointly produced by both interlocutors. Interviewer prompts, session length, population, and annotation procedures can influence the same descriptors. A development-set gain therefore does not establish that a timing representation captures participant-intrinsic behavior or generalizes to another interview setting.
+
+We investigate these questions using conversational temporal dynamics (CTD): 24 established descriptors of dyadic turn pairs~\cite{chou2019joint,chou2021automatic}. Our contribution is an empirical audit rather than a new feature set or fusion algorithm. We (i) measure the incremental predictive value of CTD with frozen acoustic and text encoders on DAIC-WOZ; (ii) inspect feature coefficients, group ablations, and session-length sensitivity; and (iii) examine timing associations and within-corpus prediction on PDCH, a Mandarin clinical corpus. We distinguish positive point estimates from reliable improvements, association consistency from replication, and within-corpus training from detector transfer. Code and aggregate analyses are available in the project repository.\footnote{\href{https://github.com/dndbsl/depression-detection-ctd}{github.com/dndbsl/depression-detection-ctd}}
+
+\section{Related Work}
+Frozen self-supervised speech encoders such as WavLM~\cite{chen2022wavlm} and contextual text encoders such as RoBERTa~\cite{liu2019roberta} offer convenient representations for small clinical datasets. Their performance depends on pooling, probing, and evaluation choices. Recent DAIC-WOZ studies report development macro-F1 around 0.80 with SSL-based systems~\cite{wu2023ssl,li2025hierarchical}, but development scores used for selection are not independent estimates of generalization.
+
+Published text systems also report higher held-out scores than our probes. Agarwal et al.~\cite{agarwal2024discourse} report test macro-F1 0.80 using patient and therapist text on the official 107/35/47 partition. Our participant-text-only input and cleaned 102/33/45 partition differ in information access and evaluation population. Table~\ref{tab:prior} makes these differences explicit. The published method has not been rerun under our protocol; we do not claim state-of-the-art performance.
+
+\begin{table}[t]
+\centering
+\caption{Text-system context on DAIC-WOZ. Published and current scores are not matched-protocol comparisons. $n$: train/dev/test sessions.}
+\label{tab:prior}
+\small
+\begin{tabular}{lcc}
+\toprule
+System & $n$ & Test macro-F1\\
+\midrule
+Agarwal et al.~\cite{agarwal2024discourse} & 107/35/47 & 0.80\\
+Our frozen RoBERTa & 102/33/45 & 0.631\\
+Our RoBERTa+CTD & 102/33/45 & 0.669\\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\footnotesize Agarwal et al. use both speakers' text; our semantic branch uses participant text only. CTD additionally uses both speakers' timing.
+\end{table}
+
+Timing features themselves have substantial precedent. Aldeneh et al.~\cite{aldeneh2019mood} study dyadic turn-taking for mood episodes; Fushimi et al.~\cite{fushimi2026beyond} investigate session-level utterance, pause, and response intervals; and acoustic-landmark approaches capture finer temporal structure~\cite{huang2020landmark,zhang2024llms,zhang2025speechtrag}. Chou et al.~\cite{chou2019joint,chou2021automatic} use the turn-pair descriptors adopted here for deception detection. Our question is what these existing descriptors add to depression screening and how that evidence changes under ablation, resampling, and a different corpus. Interviewer-prompt shortcuts~\cite{burdisso2024prompts} and broader benchmark pitfalls~\cite{danylenko2026pitfalls} motivate the controls.
+
+\section{Corpora and Timing Representation}
+\label{sec:data}
+\subsection{DAIC-WOZ and data integrity}
+DAIC-WOZ~\cite{gratch2014daic} contains interviews with Ellie, a virtual interviewer controlled by a human operator, along with audio, aligned transcripts, and PHQ-8 scores~\cite{kroenke2009phq8}. We predict PHQ-8 $\geq10$, a screening label rather than a clinical diagnosis. Starting from the official 189 sessions, we exclude nine (318, 321, 341, 362, 373, 444, 451, 458, and 480) for timestamp desynchronization, interruptions, or missing interviewer turns documented by the upstream preprocessing resource~\cite{baileyDaicProcessing}. Session 409 is a tenth integrity case but is \emph{retained}: its binary label is corrected from 0 to 1 to agree with its PHQ-8 score of 10. Thus $189-9=180$ sessions remain, with 102/33/45 in train/dev/test and 29/12/14 positive labels. No participant is reassigned between official splits. Empty participant utterances and those shorter than 100\,ms are removed. The shared cleaning implementation records exclusions and label correction separately.
+
+\subsection{PDCH and measurement differences}
+PDCH~\cite{cao2025pdch} contains Mandarin clinical consultations with clinician-rated HAMD-17 scores~\cite{hamilton1960rating}. In our processed data, 62 sessions from 46 subjects have a HAMD-17 total; 16 subjects contribute two sessions. We use a study-specific binary target, HAMD-17 $\geq17$ (27/62 positive), and separately analyze continuous severity. This threshold is not equivalent to PHQ-8 $\geq10$ and was chosen for this cohort, where a threshold of 8 would classify approximately 85\% as positive.
+
+Chunk stitching and voice-activity detection refine the coarse, 1\,s turn annotations. This produces subsecond timing estimates, but their accuracy against manually annotated speaker boundaries has not been established. Differences from DAIC-WOZ therefore include the measurement pipeline as well as language, population, instrument, and interviewer. Monaural voice-activity detection cannot resolve overlapping speakers in this pipeline: \texttt{ask\_bt} and \texttt{res\_bt} are structurally constant on PDCH. Cross-corpus association analyses consequently use the 22 measurable features.
+
+\subsection{Conversational temporal dynamics}
+\label{sec:ctd}
+We form alternating interviewer (Ask) and participant (Res) speaker runs, paired consecutively. For each turn, duration $d$ is the interval from first onset to last offset, $u$ is summed utterance duration, and $s=d-u$ is within-turn silence. Here $u$ is a transcript-duration proxy for speech activity, not a direct measurement of physiological voicing. Response latency \texttt{res\_h} is the interval from Ask-end to Res-start. Table~\ref{tab:ctd} lists the fixed descriptor set. We use interviewer text only to establish boundaries; its lexical content is excluded from the semantic branch.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/ctd_timeline.png}
+\caption{One Ask/Res pair. Turn duration, speech-activity duration, within-turn silence, and response latency provide the timing measurements.}
+\label{fig:ctd}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{The 24 CTD descriptors, computed per turn pair and averaged per session. Subscripts denote ratios of $d$, $u$, and $s$.}
+\label{tab:ctd}
+\scriptsize
+\begin{tabular}{ll}
+\toprule
+Group & Features\\
+\midrule
+Durations & \texttt{ask\_d}, \texttt{res\_d}\\
+Differences/sum & \texttt{res\_minus\_ask}, \texttt{ask\_minus\_res}, \texttt{duration\_sum}\\
+Duration ratios & \texttt{res\_over\_ask}, \texttt{ask\_over\_res}\\
+Ask ratios & \texttt{ask\_ud}, \texttt{ask\_du}, \texttt{ask\_sd}, \texttt{ask\_ds}, \texttt{ask\_su}, \texttt{ask\_us}\\
+Res ratios & \texttt{res\_ud}, \texttt{res\_du}, \texttt{res\_sd}, \texttt{res\_ds}, \texttt{res\_su}, \texttt{res\_us}\\
+Latency & \texttt{res\_h}\\
+Counts & \texttt{ask\_bt}, \texttt{res\_bt} (overlap); \texttt{ask\_st}, \texttt{res\_st} (silence)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Undefined ratios are missing values. The deployed CTD detector uses their NaN-aware session means, median imputation, standardization, and class-balanced $L_2$ logistic regression. Imputation and scaling are fitted on the corresponding training data. Regularization is selected by development \emph{balanced accuracy}, yielding $C=0.3$; the classification threshold is fixed at 0.5. The 24 coordinates are not independent: for example, \texttt{ask\_ud}+\texttt{ask\_sd}=1 and the two duration differences are negatives of each other. Regularized coefficients must therefore be interpreted alongside group ablations.
+
+\section{Prediction and Evaluation}
+\label{sec:protocol}
+\subsection{Frozen-encoder probes}
+\label{sec:modalities}
+The acoustic branch (A) uses frozen WavLM-large hidden states, time-mean-pooled per participant utterance into 25 layer-specific 1024-dimensional vectors. A learned layer mixture, additive attention pooler (hidden size 256), dropout 0.3, and linear classifier produce a session probability. Training uses AdamW (learning rate $5\times10^{-5}$, weight decay $10^{-3}$), label smoothing 0.1, class weighting, batch size 32, and up to 200 epochs, selecting the lowest-development-loss checkpoint. These are frozen-encoder probe results, not an estimate of the ceiling of acoustic depression detection.
+
+The semantic branch (T) uses frozen RoBERTa-large on participant turns, truncated to 512 tokens. Mean pooling over real tokens gives 1024-dimensional turn embeddings. Training-fitted standardization, mean pooling over turns, dropout 0.1, and a linear head produce a session score. Training uses AdamW (learning rate $10^{-3}$, weight decay 0.01), class-weighted binary cross entropy, 200 epochs, and effective batch size 32, selecting by development macro-F1.
+
+\subsection{Fusion and threshold selection}
+\label{sec:fusion}
+Given session probabilities $p_m$, fixed-weight fusion averages the selected modalities, while convex fusion selects nonnegative weights:
+\[
+\begin{aligned}
+p_S^{\mathrm{mean}}&=\frac{1}{|S|}\sum_{m\in S}p_m,\\
+p_S^{\mathrm{w}}&=\sum_{m\in S}w_mp_m,\quad w_m\geq0,\quad \sum_{m\in S}w_m=1.
+\end{aligned}
+\]
+Convex weights are searched on dev in steps of 0.1. Both fusion rules select a threshold on dev over 0.05--0.95 in steps of 0.05, maximizing macro-F1. Fixed-weight fusion is therefore \emph{not} a tuning-free reference.
+
+Single-model operating points are inherited from the reported runs: WavLM 0.65, RoBERTa 0.5238006711, and CTD 0.50. The RoBERTa threshold is not generated by the fusion grid; the semantic implementation searches candidate probability values. CTD uses a fixed threshold. All these operating points are applied unchanged to the corresponding test predictions. Selected fusion weights depend on score distributions, thresholds, and the development cohort; they are not measures of intrinsic modality importance.
+
+\subsection{Evaluation scope and uncertainty}
+DAIC-WOZ development results describe model selection; test results describe the original official-split evaluation. CTD dev predictions use a train-only fit and CTD test predictions a train+dev refit. Neural results are taken from selected run artifacts. The experiment record identifies WavLM seed 44 as the seed with the best test macro-F1; its reported score is consequently subject to test-based seed selection and is descriptive rather than an unbiased held-out estimate. We disclose the six-seed mean alongside it. The T+CTD result has no acoustic term and does not depend on that acoustic seed choice. Subsequent ablations, feature interpretation, and pooled cross-validation revisit the benchmark, including test subjects; these are follow-up analyses, not fresh held-out confirmation. Prior inspection can influence scientific hypotheses even when subsequent hyperparameters are selected inside training data.
+
+We report macro-F1 and participant-level 95\% bootstrap intervals (2,000 resamples), together with paired intervals for prediction differences~\cite{ferrer2024confidence}. Development intervals do not account for model selection on that same set. Test intervals conditional on fitted predictions do not capture all training or model-selection uncertainty.
+
+PDCH prediction uses subject-grouped nested cross-validation with five outer folds and 20 repeats, keeping both sessions of a subject together. This evaluates models trained \emph{within PDCH}; a DAIC-trained detector is not transferred. Reported mean$\pm$SD summarizes repeated evaluations, not a confidence interval from independent experiments.
+
+For the cross-corpus association audit, DAIC-WOZ uses train+dev only ($n=135$), and PDCH uses its 62 labeled sessions. Analysis families and decision rules were recorded before this audit, with prior exposure disclosed: the high DAIC test association of latency and earlier PDCH binary results had already been inspected. Pre-declaration of the later analysis does not erase that exposure. We estimate associations separately for the two instruments, use subject-block permutations on PDCH (5,000 draws), and control Benjamini--Hochberg FDR at $q=0.10$ within family and corpus.
+
+\section{Results}
+\label{sec:results}
+\subsection{Official-split prediction and fusion}
+Table~\ref{tab:results} reports the original DAIC-WOZ results. CTD has the highest selected development score among these unimodal systems, but ties text at test macro-F1 0.631. Convex text--CTD fusion reaches 0.669, an observed gain of 0.038 whose paired intervals against both components include or touch zero. Relative to text, fusion changes 18 of 45 decisions (10 corrected, eight worsened); relative to CTD, it changes two, both corrected. This is suggestive evidence of complementarity, not an established improvement.
+
+\begin{table}[t]
+\centering
+\caption{DAIC-WOZ macro-F1 [95\% bootstrap CI]. Development scores are selection results. Three-way convex fusion selects A/T/CTD weights 0/0.3/0.7 and is identical to T+CTD, so it is not a separate result row.}
+\label{tab:results}
+\small
+\begin{tabular}{lcc}
+\toprule
+System & Dev & Test\\
+\midrule
+A & .673 [.498,.818] & .545 [.392,.681]\\
+T & .690 [.517,.833] & .631 [.474,.769]\\
+CTD & .746 [.581,.879] & .631 [.472,.771]\\
+A+T & .700 [.520,.847] & .568 [.410,.709]\\
+A+CTD & .775 [.618,.906] & .612 [.458,.750]\\
+T+CTD & .804 [.643,.935] & .669 [.509,.806]\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Fixed-weight T+CTD reaches 0.738 dev / 0.650 test macro-F1, with its threshold still selected on dev. The convex fusion's test balanced accuracy is 0.673, depressed-class F1 0.552, and ROC-AUC 0.682. Across reported neural seeds, text test macro-F1 is $0.604\pm0.025$ (three seeds) and acoustics $0.506\pm0.034$ (six seeds). The main table describes specific selected runs, not these seed means. Selecting zero acoustic weight is specific to this probe and search; it does not establish that acoustics is redundant.
+
+\subsection{Feature interpretation and interviewer dependence}
+\label{sec:audit-cross}
+The existing train-only coefficient audit identifies interviewer duration \texttt{ask\_d} as the largest standardized coefficient ($-0.867$, bootstrap 95\% CI $[-1.290,-0.440]$). Latency \texttt{res\_h} has coefficient $+0.210$ with CI $[-0.322,+0.704]$. Thus, the latency association discussed below should not be described as the sole mechanism underlying the multivariate detector.
+
+Table~\ref{tab:ablation} uses the same pipeline with regularization reselected by dev balanced accuracy for each feature group. The all24-minus-no-ask paired test difference is $-0.010$ [$-0.089,+0.054$]. This establishes neither improvement nor equivalence: no clear difference is detected, and meaningful differences remain compatible with the interval. The no-ask test score differs from the earlier fixed-$C$ ablation (0.661) because regularization is now reselected for each configuration.
+
+\begin{table}[t]
+\centering
+\caption{Feature-group ablations on DAIC-WOZ (macro-F1). No ask-side group retains cross-speaker features that still depend on interviewer timing.}
+\label{tab:ablation}
+\small
+\begin{tabular}{lccc}
+\toprule
+Configuration & Features & Dev & Test\\
+\midrule
+All CTD & 24 & .746 & .631\\
+No ask-side group & 15 & .814 & .641\\
+No cross-speaker group & 17 & .700 & .527\\
+Response-internal only & 8 & .607 & .517\\
+Ask-side group only & 9 & .594 & .593\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Removing cross-speaker features has the largest observed test reduction among these deletions. Nevertheless, retained duration ratios, differences, and latency explicitly use interviewer information. The ablation does not rule out prompt selection or wizard-controlled timing as a source of signal.
+
+A separate repeated cross-validation control residualizes six absolute-time features on log session span and log turn count, fitting regressions within training folds. Full-model AUC changes from 0.700 to 0.658, whereas no-ask AUC changes from 0.660 to 0.663. These observations suggest sensitivity to session structure, but the AUC reduction is not an additive or causal decomposition of information. Binary-label associations for \texttt{ask\_d} have opposite signs on DAIC-WOZ ($r=-0.250$, $q=0.066$) and PDCH ($r=+0.231$, $q=0.721$). The latter is uncertain, and multiple corpus characteristics differ; interviewer regime cannot be isolated as the cause.
+
+\subsection{Cross-corpus associations and within-PDCH prediction}
+\label{sec:audit}
+Response latency correlates positively with continuous severity on DAIC-WOZ ($\rho=0.245$, permutation $p=0.004$, $q=0.051$) and PDCH ($\rho=0.267$, $p=0.086$, $q=0.431$). These are directionally consistent point estimates, not statistically established cross-corpus replication. No feature clears FDR in both corpora in the binary-label family.
+
+The psychomotor interpretation is also unresolved. Latency has little association with the DAIC-WOZ psychomotor item ($\rho=0.107$, $q=0.52$). On PDCH, its association with HAMD-17 item 9 is $\rho=0.296$, $q=0.066$, but this is one result in an item-level search and item 9 concerns agitation. These findings do not validate a specific retardation mechanism or establish that self-report is inferior to clinician assessment.
+
+Within-PDCH classification using all CTD features gives macro-F1 $0.520\pm0.055$ and ROC-AUC $0.476\pm0.066$, with no reliable discrimination. All five feature groups have macro-F1 between 0.468 and 0.522. The sample is small and clustered, but low power is not established as the explanation for these results.
+
+For context, 100 DAIC subsamples matched to 62 sessions and 43.5\% positive prevalence give macro-F1 $0.605\pm0.063$ and AUC $0.636\pm0.075$ under nested evaluation. PDCH macro-F1 lies near the tenth percentile, while its AUC lies below all 100 subsamples. This sensitivity analysis matches session count and prevalence, not PDCH's 46-subject repeated-session structure, label construct, population, or timing measurement. It cannot distinguish a sample-size effect from these other differences or serve as a formal power analysis. Matching PDCH on session span and turn count yields macro-F1 $0.506\pm0.049$; residualization also leaves low predictive performance. These controls do not establish the absence of other confounding.
+
+\subsection{Split sensitivity}
+\label{sec:audit-correction}
+Latency alone reaches macro-F1 0.779 and AUC 0.829 on the original DAIC test subset, but only 0.581 dev macro-F1 and $0.595\pm0.006$ under pooled subject-grouped cross-validation over all 180 sessions. The pooled estimate is a follow-up analysis of the same benchmark, not an independent replication. The contrast cautions against treating the favorable 45-session test result as a stable estimate of this feature's performance.
+
+A separate resampling analysis repartitions the training and development subjects and reselects regularization. Its resampled selection-set macro-F1 is $0.630\pm0.069$; this score uses the same subset that selects regularization and is not a nested estimate. Selected $C$ values span 0.01--1.0, with 0.1 and 1.0 each selected in 26\% of repeats. Refit predictions on the same official test cohort yield $0.611\pm0.031$. These repeated test evaluations share participants and do not increase the effective sample size.
+
+\subsection{Nested comparison with simple timing controls}
+An exploratory follow-up uses only the 135 train+dev subjects, with five outer folds, four inner folds, and ten identical partition repeats across configurations. Imputation and scaling are fitted inside training folds. Inner balanced accuracy selects $C$ from 0.01, 0.03, 0.1, 0.3, and 1.0; the decision threshold is fixed at 0.5. Interview structure consists of log session span and log(1+turn-pair count). All configurations were specified before computing this comparison, after prior benchmark analyses had been inspected; no official test subjects are used here.
+
+\begin{table}[t]
+\centering
+\caption{Nested evaluation on DAIC train+dev only. Mean$\pm$SD across ten repeats; SD is not a confidence interval.}
+\label{tab:controls}
+\small
+\begin{tabular}{lcc}
+\toprule
+Representation & Macro-F1 & ROC-AUC\\
+\midrule
+All 24 CTD & $.635\pm.026$ & $.676\pm.031$\\
+No ask-side group & $.566\pm.025$ & $.610\pm.030$\\
+Latency only & $.531\pm.008$ & $.562\pm.015$\\
+Interview structure & $.499\pm.020$ & $.535\pm.027$\\
+Latency + structure & $.550\pm.025$ & $.576\pm.029$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The full representation has higher mean scores than these simple controls (Table~\ref{tab:controls}), suggesting that its observed predictive value is not exhausted by latency or interview length alone. Removing the ask-side group reduces mean performance here, unlike the original split's point estimates. This further limits claims that interviewer-side features are dispensable. Repeats share subjects, so these differences are descriptive, not significance tests based on independent replications. The stability of the text--CTD fusion gain remains untested by these timing-only comparisons.
+
+\section{Discussion and Limitations}
+\label{sec:discussion}
+The results support considering timing as a compact candidate input, but not a reliable superiority claim. The original fusion gain is small and uncertain; the strongest unimodal development score does not imply a test advantage. Group ablations and coefficients make the representation more inspectable, while showing that interviewer information remains relevant. Similar latency--severity correlations across corpora motivate further study without establishing construct validity or a psychomotor mechanism.
+
+Several limitations determine the next tests. First, the complete text--CTD pipeline needs paired nested evaluation, with all head training, preprocessing, fusion selection, and thresholds fitted within the outer training data. Second, a reproduced strong text baseline must be compared with and without the full CTD representation and simple timing controls. Third, manual boundary validation is necessary before treating PDCH's VAD-refined timing as measurement-equivalent to DAIC-WOZ. Finally, fresh disjoint participants and a frozen transfer protocol are needed for external detector evaluation. Language, instrument, population, and interviewer change together here, preventing attribution to any one factor.
+
+We have not evaluated demographic subgroups, a full official-split sensitivity analysis, or fine-tuned encoders. Feature dimensionality alone is not a measure of end-to-end cost: timing extraction also depends on speaker boundaries and aligned transcripts. These systems predict screening labels and are not validated for clinical deployment. Privacy, consent, demographic performance, and recording-condition robustness require separate evaluation.
+
+\section{Conclusion}
+CTD yields an observed but inconclusive improvement when fused with a frozen text probe on DAIC-WOZ. Nested timing-only evaluation gives the full representation higher mean scores than latency and interview-structure controls, while revealing sensitivity to interviewer-side feature removal. Within-PDCH prediction does not show reliable discrimination. Response latency has directionally consistent severity associations, but external replication and detector transfer remain unestablished. The contribution is an empirical account of the information captured by conversational timing and its sensitivity to the evaluation setting.
+
+\bibliographystyle{IEEEbib}
+\bibliography{references}
+\end{document}

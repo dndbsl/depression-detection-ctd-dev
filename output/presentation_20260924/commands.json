@@ -1,0 +1,57 @@
+{
+  "base_commit": "d793c0cef2d2ee4b4e0bdeaa7ff3d8dc977748f6",
+  "scope": "Final presentation-generation and validation commands; no experiments rerun. Earlier layout iterations superseded.",
+  "commands": [
+    {
+      "cwd": ".",
+      "command": "/home/exouser/.venvs/ctd/bin/python scripts/build_paper_numbers.py",
+      "log": "paper-numbers.txt",
+      "exit_code": 0
+    },
+    {
+      "cwd": ".",
+      "command": "/home/exouser/.venvs/ctd/bin/python scripts/plot_paper_timing_controls.py",
+      "log": "figure.txt",
+      "exit_code": 0
+    },
+    {
+      "cwd": ".",
+      "command": "/home/exouser/.venvs/ctd/bin/python scripts/verify_paper_revision.py --record-dir output/presentation_20260924",
+      "log": "verification.txt",
+      "exit_code": 0
+    },
+    {
+      "cwd": ".",
+      "command": "DAIC_WOZ_ROOT=/home/exouser/data/DAIC OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLBACKEND=Agg /home/exouser/.venvs/ctd/bin/python -m pytest -q",
+      "log": "full-tests.txt",
+      "exit_code": 0
+    },
+    {
+      "cwd": "paper",
+      "command": "pdflatex -interaction=nonstopmode -halt-on-error main.tex; bibtex main; pdflatex -interaction=nonstopmode -halt-on-error main.tex; pdflatex -interaction=nonstopmode -halt-on-error main.tex",
+      "log": [
+        "latex-pass1.txt",
+        "bibtex.txt",
+        "latex-pass2.txt",
+        "latex-pass3.txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "cwd": "paper",
+      "command": "pdfinfo main.pdf; pdffonts main.pdf",
+      "log": [
+        "pdfinfo.txt",
+        "pdffonts.txt"
+      ],
+      "exit_code": 0,
+      "note": "Trailing spaces on blank PDF metadata fields are stripped from pdfinfo.txt."
+    },
+    {
+      "cwd": ".",
+      "command": "pdftotext -layout paper/main.pdf -; pdftotext paper/figures/timing-controls.pdf -; pdftoppm -r 100 -f 1 -l 5 -png paper/main.pdf /tmp/ctd-final-page",
+      "log": "layout_validation.json",
+      "exit_code": 0
+    }
+  ]
+}

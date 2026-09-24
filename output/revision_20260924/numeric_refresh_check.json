@@ -1,0 +1,25 @@
+{
+  "output/ctd_ablation_groups.json": {
+    "numeric_leaves": 108,
+    "exactly_equal": true,
+    "reference_commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31"
+  },
+  "output/ctd_interpretability.json": {
+    "numeric_leaves": 1026,
+    "exactly_equal": true,
+    "reference_commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31"
+  },
+  "output/shared_signal_audit.json": {
+    "numeric_leaves": 2370,
+    "exactly_equal": true,
+    "reference_commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31"
+  },
+  "output/pdch_ctd_results.json": {
+    "numeric_leaves": 1079,
+    "exactly_equal": true,
+    "reference_commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31"
+  },
+  "output/timing_controls.json": {
+    "sha256_unchanged": true
+  }
+}

@@ -1,0 +1,699 @@
+{
+  "command": [
+    "/home/exouser/.venvs/ctd/bin/python",
+    "-u",
+    "src/ctd/ml_splits.py"
+  ],
+  "cwd": "/home/exouser/projects/depression-detection-ctd",
+  "git_commit": "49520dc65987cf1f686e4aa28e0fd742778f6b31",
+  "started_utc": "2026-09-24T05:49:40.819494+00:00",
+  "environment": {
+    "DAIC_WOZ_ROOT": "/home/exouser/data/DAIC",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MPLBACKEND": "Agg"
+  },
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "packages": {
+    "exceptiongroup": "1.3.1",
+    "cloudpickle": "3.1.2",
+    "Jinja2": "3.1.6",
+    "Pygments": "2.21.0",
+    "networkx": "3.4.2",
+    "cuda-pathfinder": "1.8.1",
+    "pyparsing": "3.3.2",
+    "MarkupSafe": "3.0.3",
+    "contourpy": "1.3.2",
+    "cuda-toolkit": "13.0.3.0",
+    "patsy": "1.0.3",
+    "wrapt": "2.4.1",
+    "interface_meta": "2.0.1",
+    "pytest": "9.1.1",
+    "nvidia-cusparselt-cu13": "0.8.1",
+    "setuptools": "80.10.2",
+    "kiwisolver": "1.5.1",
+    "filelock": "4.0.0",
+    "nvidia-cufile": "1.15.1.6",
+    "nvidia-cudnn-cu13": "9.24.0.43",
+    "nvidia-nvjitlink": "13.4.92",
+    "nvidia-cuda-cupti": "13.0.85",
+    "joblib": "1.6.0",
+    "nvidia-cuda-nvrtc": "13.0.88",
+    "matplotlib": "3.10.9",
+    "numpy": "2.2.6",
+    "tomli": "2.4.1",
+    "python-dateutil": "2.9.0.post0",
+    "torch": "2.14.0",
+    "nvidia-cusparse": "12.6.3.3",
+    "et_xmlfile": "2.0.0",
+    "narwhals": "2.26.0",
+    "webrtcvad": "2.0.10",
+    "tzdata": "2026.4",
+    "scikit-learn": "1.7.2",
+    "nvidia-cusolver": "12.0.4.66",
+    "iniconfig": "2.3.0",
+    "openpyxl": "3.1.5",
+    "triton": "3.8.0",
+    "pluggy": "1.6.0",
+    "pandas": "2.3.3",
+    "nvidia-curand": "10.4.0.35",
+    "nvidia-nccl-cu13": "2.30.7",
+    "pip": "26.2.1",
+    "statsmodels": "0.15.0",
+    "nvidia-cublas": "13.1.1.3",
+    "cuda-bindings": "13.4.1",
+    "nvidia-cuda-runtime": "13.0.96",
+    "fsspec": "2026.7.0",
+    "fonttools": "4.65.0",
+    "nvidia-nvshmem-cu13": "3.4.5",
+    "six": "1.17.0",
+    "nvidia-cufft": "12.0.0.61",
+    "scipy": "1.15.3",
+    "pillow": "12.3.0",
+    "threadpoolctl": "3.7.0",
+    "nvidia-nvtx": "13.0.85",
+    "sympy": "1.14.0",
+    "confidence-intervals": "0.0.3",
+    "formulaic": "1.2.2",
+    "packaging": "26.3",
+    "typing_extensions": "4.16.0",
+    "pytz": "2026.3.post1",
+    "mpmath": "1.3.0",
+    "cycler": "0.12.1"
+  },
+  "input_sha256": {
+    "/home/exouser/data/DAIC/data/300_P/300_TRANSCRIPT.csv": "5a9f3498dc53e8b6ac3e2969ea84112491f1fff52de65e6ce81c4c1ae3792df7",
+    "/home/exouser/data/DAIC/data/301_P/301_TRANSCRIPT.csv": "40aa76859704cd62986ce404a49fd74fdd1cfede02030288e6ad06dba8c3e7b0",
+    "/home/exouser/data/DAIC/data/302_P/302_TRANSCRIPT.csv": "01519f79b6f72f3e656ca6aea33b5633d5e869c08c9a36cc410b3006c403c053",
+    "/home/exouser/data/DAIC/data/303_P/303_TRANSCRIPT.csv": "f669e6dca829dfe0c0cda36df5106f98ce04b5b4e76681fb0689c0592c72689e",
+    "/home/exouser/data/DAIC/data/304_P/304_TRANSCRIPT.csv": "23586c93273c1aab266373e6cd376f1879705fabf4b7a608bf7a802c2899d8b8",
+    "/home/exouser/data/DAIC/data/305_P/305_TRANSCRIPT.csv": "2e8bd5e94f595d7b45a0c31deb260449d91baab112491934c618baf358c98e6f",
+    "/home/exouser/data/DAIC/data/306_P/306_TRANSCRIPT.csv": "6b60985f8337ed52b0a4822551916478c60876a12d944a743e871428d34894bf",
+    "/home/exouser/data/DAIC/data/307_P/307_TRANSCRIPT.csv": "2ec44150ac14e87e815a088077d2597e1ff8390e60a1be5adbaf66ad4600ceda",
+    "/home/exouser/data/DAIC/data/308_P/308_TRANSCRIPT.csv": "e1c05fb19edd4069b9f86284cc0bafc1649fa30e7b1530b1cc60dc1db0ec9636",
+    "/home/exouser/data/DAIC/data/309_P/309_TRANSCRIPT.csv": "14b1b4593904022194ee58409aab7184b372d28f046c01b1aa15b6e8245714f6",
+    "/home/exouser/data/DAIC/data/310_P/310_TRANSCRIPT.csv": "30237bc98e10bae72ad31ea76544ce833777ebb635dd3674abec9924c9326e19",
+    "/home/exouser/data/DAIC/data/311_P/311_TRANSCRIPT.csv": "5bfc230932958624af8ff4cbeab9cc0c7c6864df3108c7471ac368be87ba082e",
+    "/home/exouser/data/DAIC/data/312_P/312_TRANSCRIPT.csv": "1f2dd0c708a1508a0136777143a7ccade8f28719a9f196f6be23154d8a13a7d7",
+    "/home/exouser/data/DAIC/data/313_P/313_TRANSCRIPT.csv": "5131ba16120829fe3a5671c669d7e76709cd11b4986aec84319d3ee28c5ec04f",
+    "/home/exouser/data/DAIC/data/314_P/314_TRANSCRIPT.csv": "de0e7c9214369fc75c8c8a4962b7534b02be760b0a7063f68cb5ea74c5730da2",
+    "/home/exouser/data/DAIC/data/315_P/315_TRANSCRIPT.csv": "22325be3ab849d7b649bcde77a93f8f41c829d76a4909dabcae8042d8bbb5b12",
+    "/home/exouser/data/DAIC/data/316_P/316_TRANSCRIPT.csv": "16bcb26591d023803cb47387aac64c56d16c9a8a5ce9389e4f76b09b10694fda",
+    "/home/exouser/data/DAIC/data/317_P/317_TRANSCRIPT.csv": "34ceefce2d7f95c21b81f8f20ae5f6ee71fd61d844d5eb0c238b8205891287a9",
+    "/home/exouser/data/DAIC/data/318_P/318_TRANSCRIPT.csv": "cc67133e857545395386b1f79bdec571e70f65c809e17e78111f11a9dffa7b63",
+    "/home/exouser/data/DAIC/data/319_P/319_TRANSCRIPT.csv": "4b4fb99c79f093a56f33aabde779eb0b2e9c64b77ee2c6d85c66b071252d2a5f",
+    "/home/exouser/data/DAIC/data/320_P/320_TRANSCRIPT.csv": "d6616954ffb5c573c163a986f7381b390ba49adb42bcd3aa2f246df1463767cb",
+    "/home/exouser/data/DAIC/data/321_P/321_TRANSCRIPT.csv": "cac4466713c0522bb452ea797c509c177baccdf18223deb070aaea19264c769a",
+    "/home/exouser/data/DAIC/data/322_P/322_TRANSCRIPT.csv": "01a877094f0e7552e6ea2aec6b46cabce32c96f2f6f5d1e0e1746f64f6190833",
+    "/home/exouser/data/DAIC/data/323_P/323_TRANSCRIPT.csv": "0ab532aa15caae2803c45f5caefc27a4c491644e80f97f1924d085c1bc0e05c5",
+    "/home/exouser/data/DAIC/data/324_P/324_TRANSCRIPT.csv": "3834105dc9187cb5cf7a92bb32f33fbe7cf822487f97dec0203eb99ef4604e94",
+    "/home/exouser/data/DAIC/data/325_P/325_TRANSCRIPT.csv": "9f438ac3899b50bb1a22de35a623906f8e6d1c12225b56b424df809071e392a2",
+    "/home/exouser/data/DAIC/data/326_P/326_TRANSCRIPT.csv": "1ed2c0b8d6fdba56e4e08046628c3dc2387cffc5a78337dc5349aa58a3b58a9d",
+    "/home/exouser/data/DAIC/data/327_P/327_TRANSCRIPT.csv": "323f7238dee9a97030045facf19deac3ec20b12ec563a6505aa1aa0f2b799954",
+    "/home/exouser/data/DAIC/data/328_P/328_TRANSCRIPT.csv": "39c7ad8f5beb0af323ae2ade912b5efe45bcbfa34f220d1ee11d106a999f8664",
+    "/home/exouser/data/DAIC/data/329_P/329_TRANSCRIPT.csv": "2a695d5cdeb577d89445281091d55f2f81b12aa806c93af31f4cee634efe4f00",
+    "/home/exouser/data/DAIC/data/330_P/330_TRANSCRIPT.csv": "034d139dc6de5eef89c55df33b119964961c6fe29dc7065377bd315afab895d3",
+    "/home/exouser/data/DAIC/data/331_P/331_TRANSCRIPT.csv": "b6ab8dc1828b13bad5269684cd8289254dc75149df239874e02f0f64319e4b6d",
+    "/home/exouser/data/DAIC/data/332_P/332_TRANSCRIPT.csv": "15c8effea00b14cbe87299990f481553d008b2907c903906fb9025a3f6f0e347",
+    "/home/exouser/data/DAIC/data/333_P/333_TRANSCRIPT.csv": "e48b01759f2407a0f553cdbaacc1d7cc48b7aae46b60c811efd4bd39f41a799a",
+    "/home/exouser/data/DAIC/data/334_P/334_TRANSCRIPT.csv": "4b93fe1dc972af5a217bcdd6755c0d48d63f62ecfd42ac2e92df84ae07fe7b53",
+    "/home/exouser/data/DAIC/data/335_P/335_TRANSCRIPT.csv": "845df9fdfc49b99a967489a47073f7ca8804d6632ea06b5651fbdbb682810c78",
+    "/home/exouser/data/DAIC/data/336_P/336_TRANSCRIPT.csv": "e37d44701746b518236bcc50fa6e564cba52f6fcc334aebcdee328eb97849cfe",
+    "/home/exouser/data/DAIC/data/337_P/337_TRANSCRIPT.csv": "70b795a63926d309aec665c101225de1425294106200c76230f82a4f1a622e8e",
+    "/home/exouser/data/DAIC/data/338_P/338_TRANSCRIPT.csv": "90efb974c5f7b42be3bd53ae744bb7e5f80c934458bb54efd0fb7ab04775da6e",
+    "/home/exouser/data/DAIC/data/339_P/339_TRANSCRIPT.csv": "9c1a1e8d6bd5668e4951189a7cff31d1d86029f3b7a8026e85f36f855a1a7883",
+    "/home/exouser/data/DAIC/data/340_P/340_TRANSCRIPT.csv": "beb2b3771ad15096d15f22af029dc6e2dfa7bd0945604ab1ccdc9e0e9911f350",
+    "/home/exouser/data/DAIC/data/341_P/341_TRANSCRIPT.csv": "da1263c6a64c3236953275a910b5e29354722326b9a625c3a4113ec0400a55ce",
+    "/home/exouser/data/DAIC/data/343_P/343_TRANSCRIPT.csv": "cbf7ae6fba7949eb4cd3091c1e0009c0d82410c1a54dc3530e22fadd185be92d",
+    "/home/exouser/data/DAIC/data/344_P/344_TRANSCRIPT.csv": "260a41cf4b12c543c44ccacac49685791de7124d039e462d5819d223b77812c9",
+    "/home/exouser/data/DAIC/data/345_P/345_TRANSCRIPT.csv": "7c3bca66a6d3649e4502bd0b5c1e144dacacc19b73ffb0b917cc4c4bdadafdda",
+    "/home/exouser/data/DAIC/data/346_P/346_TRANSCRIPT.csv": "513de65e956f76d9b4c18079978c8133406f4bb79da9a51ff5c79456d4c42f8e",
+    "/home/exouser/data/DAIC/data/347_P/347_TRANSCRIPT.csv": "35df258025499fe5ca93979f88559f8b17100d5949b37903d9ec06a73792c122",
+    "/home/exouser/data/DAIC/data/348_P/348_TRANSCRIPT.csv": "4a8aa88a525354fdb64b397881d51afc2129ea25bbc9064fe3d70e4154d00258",
+    "/home/exouser/data/DAIC/data/349_P/349_TRANSCRIPT.csv": "9b929565bdea48226ec0aa762b9ef21e26de723955b159cf443abd4c035847be",
+    "/home/exouser/data/DAIC/data/350_P/350_TRANSCRIPT.csv": "a3b11ee62e0a4b1491634c6c0c9e20755a4af4922e26816b00a5bc78e7ee751a",
+    "/home/exouser/data/DAIC/data/351_P/351_TRANSCRIPT.csv": "c7ac8893951dc0e6e09c6723b6e85f67f23ccd232d88429b895185f7c16d548a",
+    "/home/exouser/data/DAIC/data/352_P/352_TRANSCRIPT.csv": "4396a8c00e0341cd3f25563f5edf4b9522687322569d596b34469caa2cd90c57",
+    "/home/exouser/data/DAIC/data/353_P/353_TRANSCRIPT.csv": "00e6c5ccf3f4da3f187cdc8a7ca636791aecd21578d71137bf2a40484ae0c435",
+    "/home/exouser/data/DAIC/data/354_P/354_TRANSCRIPT.csv": "71d616f96cc0500cb803ab2b7d3b12878e41eb790c7167017e585bfd35e284c9",
+    "/home/exouser/data/DAIC/data/355_P/355_TRANSCRIPT.csv": "ff063ee603680fb7fa22d21491c579f68b0cb45f87b96f73b317683fd7322b36",
+    "/home/exouser/data/DAIC/data/356_P/356_TRANSCRIPT.csv": "fc0b8f239ca5bacdc2e31af4ad9ddace4f26039e3db1bbbbf8ee1bde744f1b4c",
+    "/home/exouser/data/DAIC/data/357_P/357_TRANSCRIPT.csv": "0889ac876ade45a7659e0f861ab91f24ec3a0a73e11bf554c44073b44ffe4190",
+    "/home/exouser/data/DAIC/data/358_P/358_TRANSCRIPT.csv": "88ce3be087a3eab3a82d44d2f5e8226378c9ec230ebb64273f9ae674174fb17a",
+    "/home/exouser/data/DAIC/data/359_P/359_TRANSCRIPT.csv": "e494668777cac1de9dc5880ccd949cba3970c0f93cf2b0167cad2dbda24c6827",
+    "/home/exouser/data/DAIC/data/360_P/360_TRANSCRIPT.csv": "bab197bd47520d5e26177d80ae8388ee0acff2e4484d841b1e9781bb002754b8",
+    "/home/exouser/data/DAIC/data/361_P/361_TRANSCRIPT.csv": "50ddf6e13a6731059694949bc0d17db4bd9130c3fb32bfe9d8b2b1325fa3a192",
+    "/home/exouser/data/DAIC/data/362_P/362_TRANSCRIPT.csv": "1eff7f2fd5bbae6edb864b923dad161a7f119c38af6d7d6f8f6834c4bdd6d766",
+    "/home/exouser/data/DAIC/data/363_P/363_TRANSCRIPT.csv": "f9e3ad232823165ed5db7322f3af10c9dc5a71dad5e8dca069d9f523fbea6dd2",
+    "/home/exouser/data/DAIC/data/364_P/364_TRANSCRIPT.csv": "a68b854b7f0e41dbe5c636c732c79fbfc794185502a41e46c5f3665cd0e4f87f",
+    "/home/exouser/data/DAIC/data/365_P/365_TRANSCRIPT.csv": "badf971be7fb8851fe2a74e795bb8beb3337f19747209b7c6eb6e3093e0ddd1d",
+    "/home/exouser/data/DAIC/data/366_P/366_TRANSCRIPT.csv": "4bb3925ff033bcc8a4574346c231b61bd54d345f27bddf1ba6e567e2e7a63fa5",
+    "/home/exouser/data/DAIC/data/367_P/367_TRANSCRIPT.csv": "b5ea319528f3f86135f0d47be6a3ac1448f6a664ccbe2dc8c0137250b3c2e862",
+    "/home/exouser/data/DAIC/data/368_P/368_TRANSCRIPT.csv": "1700b93dae5376863ccbbba3323f656aacfe5629c65631a4e5c0bae62768d1fb",
+    "/home/exouser/data/DAIC/data/369_P/369_TRANSCRIPT.csv": "32d2d05dfd5121187c6844d28a9966ff9a79bb6ef4a38e2514ba4cda454106c2",
+    "/home/exouser/data/DAIC/data/370_P/370_TRANSCRIPT.csv": "cb3b7e9244bb8eaecb4522af2f30eeab9db66b2d8cd34c8bd7991a3a05272868",
+    "/home/exouser/data/DAIC/data/371_P/371_TRANSCRIPT.csv": "57d4e4d0b426fece0b954cbd1b827ce782acf118dcd1968a7d306c3efef2ddac",
+    "/home/exouser/data/DAIC/data/372_P/372_TRANSCRIPT.csv": "e6e9931a8db0ebebfc59ea38fc0211025514fe3e6bc743d07a9a5973a9fe07cb",
+    "/home/exouser/data/DAIC/data/373_P/373_TRANSCRIPT.csv": "c72d7f03e1fc391448abb1b5d05aacda22feabd91267e32b30a00923692140ef",
+    "/home/exouser/data/DAIC/data/374_P/374_TRANSCRIPT.csv": "55a6573fe62b99b968058c37a0ad5e05814fbc4ff453f6729ef9f4da702be9df",
+    "/home/exouser/data/DAIC/data/375_P/375_TRANSCRIPT.csv": "5a96df59d9a0c70cfc1864d5dc4f2d11fd187aa4258dfebcc37d1ec8e62d87cb",
+    "/home/exouser/data/DAIC/data/376_P/376_TRANSCRIPT.csv": "f0804700effbc5c7c65474c79b2798ed2193fef5f91b33bb75adbda73007555b",
+    "/home/exouser/data/DAIC/data/377_P/377_TRANSCRIPT.csv": "e6b5080e382167ad0e926798db427fc300ac69d422d98b1eb5b25668abe23268",
+    "/home/exouser/data/DAIC/data/378_P/378_TRANSCRIPT.csv": "bb99a366507899e357ba73ef23ab0a2aece3e02aebda11c1eeedb4a671c77b37",
+    "/home/exouser/data/DAIC/data/379_P/379_TRANSCRIPT.csv": "bfd64da0b72ab6599efb15cb75f32a2865ed78d5cf638c71b35bb634b7ef33a8",
+    "/home/exouser/data/DAIC/data/380_P/380_TRANSCRIPT.csv": "4915aa337ddd60314e5b216422b4e337896e30d5cfe14c3b69c428c5cd752564",
+    "/home/exouser/data/DAIC/data/381_P/381_TRANSCRIPT.csv": "59f5f9dda88ac830f78ea58a7c1ccc645233afbac54b87e11bde543ce6781f48",
+    "/home/exouser/data/DAIC/data/382_P/382_TRANSCRIPT.csv": "584c4a22557da9ddc7db16b49272706221a6caf39adb747be4107e2cc9b22a98",
+    "/home/exouser/data/DAIC/data/383_P/383_TRANSCRIPT.csv": "68f7a4b4a188b81f56d3b3282207ad975d55df5ca323d46832cb5a0735292880",
+    "/home/exouser/data/DAIC/data/384_P/384_TRANSCRIPT.csv": "be8016a91d6496c293a4c420d26cfc30266fc6c4fe4655235ea8de3c64ed5257",
+    "/home/exouser/data/DAIC/data/385_P/385_TRANSCRIPT.csv": "60e750b8074b837be3bd3ee7014800d343268fb7d985834a983c9157e241e9b1",
+    "/home/exouser/data/DAIC/data/386_P/386_TRANSCRIPT.csv": "36c9ce761dec60f46d1c5f1b9ee1937183f84db42386e1f76e03f58572f40f6b",
+    "/home/exouser/data/DAIC/data/387_P/387_TRANSCRIPT.csv": "34e9eb54fecd9cac70b96a82d69af5a91b97fad9071cc21a2c508820eadbdc75",
+    "/home/exouser/data/DAIC/data/388_P/388_TRANSCRIPT.csv": "5e4d8df44cff2266b5173c6331991e848fe496fcbd7c9b18e828e727aae41952",
+    "/home/exouser/data/DAIC/data/389_P/389_TRANSCRIPT.csv": "4eee01df0b3ad3c3e2bf70c45e018c03704d6980761889a846789587fc994e59",
+    "/home/exouser/data/DAIC/data/390_P/390_TRANSCRIPT.csv": "0a4fb3f088f2c3176edadbe251001df2dd6af0b6dad5d22576934a1b8cc27612",
+    "/home/exouser/data/DAIC/data/391_P/391_TRANSCRIPT.csv": "c50389ce40d460ed54768aee265625c930af288177f5a42963db1b63b8feca2d",
+    "/home/exouser/data/DAIC/data/392_P/392_TRANSCRIPT.csv": "fd26a286ab5460ef745d7df4b6cc04f8669eede4ce78a646177eb995da4fc2c2",
+    "/home/exouser/data/DAIC/data/393_P/393_TRANSCRIPT.csv": "4816ca2158d95664a2f9363e32cccce8a656cfe9f3b3be2c39b4a0ff5090d04c",
+    "/home/exouser/data/DAIC/data/395_P/395_TRANSCRIPT.csv": "2528782fbfc95cd50c6814a2468c6f6a8b932824654d5c979507f2c7326be632",
+    "/home/exouser/data/DAIC/data/396_P/396_TRANSCRIPT.csv": "f941278015a1b8674701b0c8caaf64863f7c135d56e4d019358dfc5689769f9f",
+    "/home/exouser/data/DAIC/data/397_P/397_TRANSCRIPT.csv": "0e437643c247da42419c044045081aeaf194ba7a5ed463fc0a084b40890b24b2",
+    "/home/exouser/data/DAIC/data/399_P/399_TRANSCRIPT.csv": "b2e55d63c92861449edb3525b351d118adf7c5da2ce7ef611d050d0341a5d86b",
+    "/home/exouser/data/DAIC/data/400_P/400_TRANSCRIPT.csv": "35052c774a1b2c3be6c6710daeaf3f18b9a3a455c6c95ba76595ebdb57f765a2",
+    "/home/exouser/data/DAIC/data/401_P/401_TRANSCRIPT.csv": "c416d92ccb3715b782a16621adccf4ca53880d9ebc5362cd5be7c2fbffe99538",
+    "/home/exouser/data/DAIC/data/402_P/402_TRANSCRIPT.csv": "e0a6eb18291a930b06a27efca06d752df134988f42845164bb24b62a7ca59f49",
+    "/home/exouser/data/DAIC/data/403_P/403_TRANSCRIPT.csv": "a96f8f9e2e46dca3f1691c4b1340e1e21abce160ab658bc30862f7c94dceff7b",
+    "/home/exouser/data/DAIC/data/404_P/404_TRANSCRIPT.csv": "34e75a2ed113559bb4417c031a62b97671036ed7add8d768e64c38ce086201b8",
+    "/home/exouser/data/DAIC/data/405_P/405_TRANSCRIPT.csv": "1267a9e866aad2c74b9ad990976ea2351483d02a8c7b3d6a916ed8a61fe8ca7d",
+    "/home/exouser/data/DAIC/data/406_P/406_TRANSCRIPT.csv": "ea9363939167137554c886e94ca24c4547d3346ed6fce999664d365e9d6047de",
+    "/home/exouser/data/DAIC/data/407_P/407_TRANSCRIPT.csv": "ed6f7c0229e0ea56f4df047b20eaacc5773cab625e692f0817b179ea99e91117",
+    "/home/exouser/data/DAIC/data/408_P/408_TRANSCRIPT.csv": "13029dfbe30a232ced906d5c3f66aeba26d738c42427e9b624cf8e1e877d14f9",
+    "/home/exouser/data/DAIC/data/409_P/409_TRANSCRIPT.csv": "8a2a0cd2bda2e880b2affb1854b85150009f86568f1f88df6fa67d9552681b04",
+    "/home/exouser/data/DAIC/data/410_P/410_TRANSCRIPT.csv": "e54d557d3fac08d353a11b1152889f25ff404388d3f2fd01138ed99fd071415b",
+    "/home/exouser/data/DAIC/data/411_P/411_TRANSCRIPT.csv": "7b468d1420f1bb49c931af5b5d1b0ea95fa80e4ee1c792329aa02b9f8f370fcf",
+    "/home/exouser/data/DAIC/data/412_P/412_TRANSCRIPT.csv": "6e6ab3560f8f7fea703fe1d4da7c8ec81d3106a81e7cee597b667ea2f2d4d5ee",
+    "/home/exouser/data/DAIC/data/413_P/413_TRANSCRIPT.csv": "3df9c46a5cc98b928d272482b12d330ff6013d14ac67f89b7179c0a0169ddd18",
+    "/home/exouser/data/DAIC/data/414_P/414_TRANSCRIPT.csv": "9863597f9cbca71a3b2852d1f173aa60cd0a762ac022fcc16bb7aad39288ce04",
+    "/home/exouser/data/DAIC/data/415_P/415_TRANSCRIPT.csv": "0cb55a4ed3cc110ffe35d3fe1e9765fae4e47b57244cee8a30c88d1baf963aa6",
+    "/home/exouser/data/DAIC/data/416_P/416_TRANSCRIPT.csv": "3744d84b258a4d1b02ea6c382d1b2d6be90948a949467c606360ac8080022111",
+    "/home/exouser/data/DAIC/data/417_P/417_TRANSCRIPT.csv": "0a80a2ddd251ded96be1a42eae3a197a5c91889f7ebb46fcc56492343cd6d669",
+    "/home/exouser/data/DAIC/data/418_P/418_TRANSCRIPT.csv": "8e7c456c8e482c27a7ff6966ed3450e6a2134db68977c077e374b907fd388623",
+    "/home/exouser/data/DAIC/data/419_P/419_TRANSCRIPT.csv": "8560af888ccca7f5f8bda87c4e4245906a67bd8469f79aa0053bd264121e064d",
+    "/home/exouser/data/DAIC/data/420_P/420_TRANSCRIPT.csv": "58e9f129613667b8b260c73524ce56ba413438bffbe86f6480da5dc1e7b3bffc",
+    "/home/exouser/data/DAIC/data/421_P/421_TRANSCRIPT.csv": "df8fc548c0425537806a2588f63954d8d583c7a95f969b38c77607ec9ee63036",
+    "/home/exouser/data/DAIC/data/422_P/422_TRANSCRIPT.csv": "81d6fadb20f22a592c98f344ecd551ae1d2c8a72103f354aa44593a189cd9c6e",
+    "/home/exouser/data/DAIC/data/423_P/423_TRANSCRIPT.csv": "657da0f4e2e49fa02182273fc866274c3ebe88bed32bd405826729927afa33f7",
+    "/home/exouser/data/DAIC/data/424_P/424_TRANSCRIPT.csv": "35aa2d19cf7ae4e9d50e8c2b14fb2213a93168dda95ee118dd0f1cc78cb6994c",
+    "/home/exouser/data/DAIC/data/425_P/425_TRANSCRIPT.csv": "0ce141598c592d53d3b7b010cf5ec470454a3f1bcc3ed275c185a21b2e2ceaa4",
+    "/home/exouser/data/DAIC/data/426_P/426_TRANSCRIPT.csv": "93972344c4589aec0ac9f0b20c2b53f48f2c85ae850e003b4eaa4c72c0b11fd1",
+    "/home/exouser/data/DAIC/data/427_P/427_TRANSCRIPT.csv": "65bbfb8fe51aa86666684776a815fb5d322ce5f6eb8f542e2f91cfa496356c56",
+    "/home/exouser/data/DAIC/data/428_P/428_TRANSCRIPT.csv": "e69ecdd1e1f77aeebcba22bf3b83cdf046820a3274ba580c9d7b129a3a0cb81a",
+    "/home/exouser/data/DAIC/data/429_P/429_TRANSCRIPT.csv": "e8828e503d421cd60089de88a674d0051660b944717ea9f6085198a7719a2e01",
+    "/home/exouser/data/DAIC/data/430_P/430_TRANSCRIPT.csv": "9029883a0bd55b2910f82f646a846b6acd8504a6d18d5bb9f344b7b9119b2395",
+    "/home/exouser/data/DAIC/data/431_P/431_TRANSCRIPT.csv": "838bdd1c9ad5ff52d22e0010959f61b70075440f47bb7c9e0bcf6ce1d17d511d",
+    "/home/exouser/data/DAIC/data/432_P/432_TRANSCRIPT.csv": "39e81f72d912379c974d8c8fb0e29e1704d4333ed86d2842504cc4121a0245f2",
+    "/home/exouser/data/DAIC/data/433_P/433_TRANSCRIPT.csv": "517437c0dd6b68ab92c422316a3a086ddebedd288b720fa60d6e1cd3e73995d8",
+    "/home/exouser/data/DAIC/data/434_P/434_TRANSCRIPT.csv": "50d555c066ab911828692cd20182a046c6d572f296a425f255b66111be81d9a2",
+    "/home/exouser/data/DAIC/data/435_P/435_TRANSCRIPT.csv": "8d5b3bc6f93b5872c9645e8d21ba27eff5a992895217afe3f157402b3c828f78",
+    "/home/exouser/data/DAIC/data/436_P/436_TRANSCRIPT.csv": "4a37cc2ada0a61bead30284eaf1cb2c47063b8c81401b5688cfc83f83ca83c0f",
+    "/home/exouser/data/DAIC/data/437_P/437_TRANSCRIPT.csv": "11350c654e220239a71be6ed985a43d98ca843d51ea0c5ecb9337c6c06d31107",
+    "/home/exouser/data/DAIC/data/438_P/438_TRANSCRIPT.csv": "e442f9b3240128c351087c2536fa244a07119554028ba6d88033798b116eac3c",
+    "/home/exouser/data/DAIC/data/439_P/439_TRANSCRIPT.csv": "64a4ed4133d97512d6605e0896a39ff95fe82e3ee8811b63fe8671e72368685e",
+    "/home/exouser/data/DAIC/data/440_P/440_TRANSCRIPT.csv": "194b5ce8af2f8b519cd4e160c0289b08cdfad825194cffd75b9cebe9a41c9f8b",
+    "/home/exouser/data/DAIC/data/441_P/441_TRANSCRIPT.csv": "e8646c7c2a1c0fb5f8a7e2d87174af4d51e6788eb56267426ed107b20edf20a3",
+    "/home/exouser/data/DAIC/data/442_P/442_TRANSCRIPT.csv": "d8b7486406f0b73f533adb78c76380a41cec890526930b03c38528fdc7346fbb",
+    "/home/exouser/data/DAIC/data/443_P/443_TRANSCRIPT.csv": "0a457cd748640f20333b860b921ae866c1e083ea7260f5437404ce9494cc4965",
+    "/home/exouser/data/DAIC/data/444_P/444_TRANSCRIPT.csv": "3b91920354fbd3030b1d5917b67302f6af230b7ace6601bdb83baf89b7ccd541",
+    "/home/exouser/data/DAIC/data/445_P/445_TRANSCRIPT.csv": "db096db9fb3eb5eef51d3b1099a7b276106615dd67038e55d15e75c982f31da5",
+    "/home/exouser/data/DAIC/data/446_P/446_TRANSCRIPT.csv": "3327763c2cabf2905dbce2be2fa86af7e16638df735c663461f8b4cf70224d9f",
+    "/home/exouser/data/DAIC/data/447_P/447_TRANSCRIPT.csv": "062123b333b505c146c65cb30a050c93c226ce231e1b3aa875e078c6cc130c95",
+    "/home/exouser/data/DAIC/data/448_P/448_TRANSCRIPT.csv": "5a8342b323e4377f5bdb865ac48f3e4e373ba5f6afe47846086dbaaf03bc1ba9",
+    "/home/exouser/data/DAIC/data/449_P/449_TRANSCRIPT.csv": "a0c06072fc85b6c78d01cb163423e44d27dfa29dd54e74f568d0261a8f60141e",
+    "/home/exouser/data/DAIC/data/450_P/450_TRANSCRIPT.csv": "3543dabf78e1eb8e825a90d52a190c206d8ee1134bbb50b6a93d8c419359d861",
+    "/home/exouser/data/DAIC/data/451_P/451_TRANSCRIPT.csv": "e38777ade35efb1a1dcaca108537c6cbeed6a0b206dc5afac281bba5739f5c25",
+    "/home/exouser/data/DAIC/data/452_P/452_TRANSCRIPT.csv": "39f72cf29916702024bd3174c571de4b70a90eda3b84ce22b8105d8cc1ae6e22",
+    "/home/exouser/data/DAIC/data/453_P/453_TRANSCRIPT.csv": "26708ea2e643ccf704fb7ad525c4a44dc4d89ee0af3bb57b04c37515e584a341",
+    "/home/exouser/data/DAIC/data/454_P/454_TRANSCRIPT.csv": "67adf7f1a1d7094f861650c46a682d2a99815c878af89e0c28d376ca59491c89",
+    "/home/exouser/data/DAIC/data/455_P/455_TRANSCRIPT.csv": "5e54fc95ff0051cd367a0f824cb7fcc106777b725f76386336b549ba6e29fcad",
+    "/home/exouser/data/DAIC/data/456_P/456_TRANSCRIPT.csv": "9161038270c4ed5264e9171794ec2bfcdb035095ca47754fcb0fd21d3cc23678",
+    "/home/exouser/data/DAIC/data/457_P/457_TRANSCRIPT.csv": "7c00ca4e39db1e33bf6857dd9843ae62515b01e98ae1b94a73354c6c6c3991da",
+    "/home/exouser/data/DAIC/data/458_P/458_TRANSCRIPT.csv": "affe717db72f5f5c208908c4db65b7c137bec531be381b0b69c8f55d845526d5",
+    "/home/exouser/data/DAIC/data/459_P/459_TRANSCRIPT.csv": "029d8d93a0dcd1063200cc630da891bc03d8abe78dfcc0577af96935e8b79104",
+    "/home/exouser/data/DAIC/data/461_P/461_TRANSCRIPT.csv": "c7df23adb17c86e4a6e8c65c1ee96a1c313f3fe1e965fb1a4519a49971042b38",
+    "/home/exouser/data/DAIC/data/462_P/462_TRANSCRIPT.csv": "38cf3bdcb3f58a2ec99b85c0a0bbd651a9e7eb609a9a14ffbec3a6f4852b8c5f",
+    "/home/exouser/data/DAIC/data/463_P/463_TRANSCRIPT.csv": "0e258c82031057aee238e28ad404bd08b8c6f2bdc8efad1b08ad3062b3bb0741",
+    "/home/exouser/data/DAIC/data/464_P/464_TRANSCRIPT.csv": "24d5519effe77f253912bdc32e9e9c16dfd49b12874925b9c0868dc2bc0d3694",
+    "/home/exouser/data/DAIC/data/465_P/465_TRANSCRIPT.csv": "93004f808ed76002cb157e887c3d6165bd4e135b18942e536878406925f1442d",
+    "/home/exouser/data/DAIC/data/466_P/466_TRANSCRIPT.csv": "cede0e16a0e0f9fb7721cd168c905a892e3db9a2c15d538db56dec5188d2a67a",
+    "/home/exouser/data/DAIC/data/467_P/467_TRANSCRIPT.csv": "992d6a052234ae01a7242f8318ad74f63ac94bdaf43e0f7fa21056b7f51ab8e9",
+    "/home/exouser/data/DAIC/data/468_P/468_TRANSCRIPT.csv": "f554abb9bf3b78a8fd1470647ad58c5bc1c3019562f2c29a37990f4dee618802",
+    "/home/exouser/data/DAIC/data/469_P/469_TRANSCRIPT.csv": "bb356ed1902563fb4e05d8659a9f824c654736b384efa86202ea684efd99a9d9",
+    "/home/exouser/data/DAIC/data/470_P/470_TRANSCRIPT.csv": "7a82435f85c5b352ad15371e70a4a1c7e3b279aecc37a7e8b78bc32e44c85457",
+    "/home/exouser/data/DAIC/data/471_P/471_TRANSCRIPT.csv": "ccc395e4b34063ffa875be3556b7459c1cf47d703d21f21b2b47c39fbaaa7a13",
+    "/home/exouser/data/DAIC/data/472_P/472_TRANSCRIPT.csv": "8f77d61cd6654347149f5049627a5a62b34f407b2ecd11a1bad633e148add0dc",
+    "/home/exouser/data/DAIC/data/473_P/473_TRANSCRIPT.csv": "0e2fbea2ccc0f309b1eea3f33f68a341d93c0f1b48f4a760bbe89cebde6a02cb",
+    "/home/exouser/data/DAIC/data/474_P/474_TRANSCRIPT.csv": "4ec85d97453f24fcca7ca44e25cd21e2a21e3dcf190d1d79658d98e30e3ae022",
+    "/home/exouser/data/DAIC/data/475_P/475_TRANSCRIPT.csv": "30cf4fe314b25ffaea83ca78af38077b18aa692905d095eb866e93889eaabcf7",
+    "/home/exouser/data/DAIC/data/476_P/476_TRANSCRIPT.csv": "c4bb5d0c306d9f0ff2c7202f0ad9cec545bd6c3976c1b60f880c80b0f6e62b54",
+    "/home/exouser/data/DAIC/data/477_P/477_TRANSCRIPT.csv": "263313d3ee61601f2e8d2d4026ac0759054ab2f4ca78724ee9bac21585b25d6a",
+    "/home/exouser/data/DAIC/data/478_P/478_TRANSCRIPT.csv": "84094d26733bd4c7ed03bd7953395d9215f5c1496f2168d35130f5c870888506",
+    "/home/exouser/data/DAIC/data/479_P/479_TRANSCRIPT.csv": "b00e83f9e44072384ace332e2b566ae7d53814656dfdb141238b05f267df8d95",
+    "/home/exouser/data/DAIC/data/480_P/480_TRANSCRIPT.csv": "6796f6da9d749e70330e9ad92c750eeec5344dbb35616ff36547e3010858e196",
+    "/home/exouser/data/DAIC/data/481_P/481_TRANSCRIPT.csv": "a0afc4aed373ec47182b4c0fc61786537ffa2b587f16d4503504f9c685adb24c",
+    "/home/exouser/data/DAIC/data/482_P/482_TRANSCRIPT.csv": "d91c1660444334a13d794a98c45cabdad26b9efccfe86b15b41d3f2204415dd9",
+    "/home/exouser/data/DAIC/data/483_P/483_TRANSCRIPT.csv": "28206ba883b928033440e1cb62923a8a3519965b2dc5b3b5497a90d9aa9fe178",
+    "/home/exouser/data/DAIC/data/484_P/484_TRANSCRIPT.csv": "608aaa2e5c3c9422fe702173b1232186963795527306f62a18db09cfe5a4885e",
+    "/home/exouser/data/DAIC/data/485_P/485_TRANSCRIPT.csv": "6563df03438c70f00e67ca71d1f83a055e80aeb19cc351ac00eaf99723234cda",
+    "/home/exouser/data/DAIC/data/486_P/486_TRANSCRIPT.csv": "5b1d16a292a0601b2a1f58926270ecd0c8b6f6c2308527d00f7b1fe6bf5b2db2",
+    "/home/exouser/data/DAIC/data/487_P/._487_TRANSCRIPT.csv": "74cdafb838c0b2d8aa60287e980fd4a5167b543d9b24ff380096d2dec5f3828a",
+    "/home/exouser/data/DAIC/data/487_P/487_TRANSCRIPT.csv": "8a6643764bdbe3f1c4360fb5b06566412987540cefb5c31bd6597d0ca553c4fa",
+    "/home/exouser/data/DAIC/data/488_P/488_TRANSCRIPT.csv": "ec6f15ccee38f86faaad33644a9a5f369957368a3115a9ee41236f4b8cf4d68c",
+    "/home/exouser/data/DAIC/data/489_P/489_TRANSCRIPT.csv": "9abd2e6ba4ce0027bf8a5564343cfe1e5bd0a830fd03348c1dc2e02f8c57ca5b",
+    "/home/exouser/data/DAIC/data/490_P/490_TRANSCRIPT.csv": "c7ddd6498deb5d32410a0b3148910827f31273a9ef7393be834d7d691136c0e1",
+    "/home/exouser/data/DAIC/data/491_P/491_TRANSCRIPT.csv": "c57336d685330d1c819913d6b64442f0259be7c7f567e62de2f3e81da6f2248a",
+    "/home/exouser/data/DAIC/data/492_P/492_TRANSCRIPT.csv": "a6f20a2ac36d5803ef12dcdd9d0a2d57c8323891e486ba0bda656cdf8e76a52b",
+    "/home/exouser/data/DAIC/labels/dev_split_Depression_AVEC2017.csv": "81478dcb078b8cbed07aec79944b8cfdac8bc5d1f16851f6d0b75e81dae95e9d",
+    "/home/exouser/data/DAIC/labels/full_test_split.csv": "66640def4bb104b62c4030453f7ef617441439247f1a99dbb83fa6c15271156b",
+    "/home/exouser/data/DAIC/labels/test_split_Depression_AVEC2017.csv": "f7103af5cc9be3618f0165d3bf296cf81fb02ac3390669d5ae947ba298b5581c",
+    "/home/exouser/data/DAIC/labels/train_split_Depression_AVEC2017.csv": "d6fd5dd6ed19f76b961ec67b0b005d2e466444fe3498119729d673b2edfad28a",
+    "output/RESULTS.json": "294d6ce62a2fe4353f59f23c37413b980af80c3f9023734158741ae95155ff5c",
+    "output/ctd_ablation_groups.json": "4ae68c006c3c7aecd9fc7329778ce999e9bfbab78bf8a3710d9f06c84fcdc947",
+    "output/ctd_interpretability.json": "7d14724d5e9b52a1b22613ed84b239f35f0276d1f82a6bd116f5a78936321d78",
+    "output/ctd_resampling.json": "31fc3394a8c8bd0e3d0794a6b6b91b86f8fa7b83e91fc487a3035df5274d2e0c",
+    "output/fusion_wavlm_seed44.json": "b2be0ece82cc8c10407a1a2925d2f85185cf6eb48527fa3260fe003a9a8ff240",
+    "output/mean_prob_seed44.json": "912eb369330b7b074a9f101ecd13029345ae88cd37acf14449659477c9f4d374",
+    "output/official_split_ctd.json": "82e6ed7d32853d7c208dd32bb32c43e930547a214e38bc3eb5498538e2cdc1c8",
+    "output/pdch/pdch_feature_degeneracy.csv": "a419d82017e5cd80ac5e87935e8e49097a217b2322d84281faa3fe51f8121e12",
+    "output/pdch/pdch_session_report.csv": "70ffaa94f1ebf548e17cdb7f5ea08046e49af02de42ad111ad014df3ff96a4c7",
+    "output/pdch/pdch_utterances.csv": "a3f0c487ee6301614d6cccdedbd021f624454b43b861cde1e39238bcf6b3b298",
+    "output/pdch_ctd_results.json": "38192c0db182e6220b5b2330d6850530e5291cbd8dd2801fce63df2eb9459194",
+    "output/revision_review_context.json": "2d18850d3276e492a38de3ad010179a8b9bde0334bf3ebba091fb05b80717eb3",
+    "output/shared_signal_audit.json": "f4a17993ec3d361ab7ab2bf19daff8b3a145541a2b06167416d3334c12be5369",
+    "output/summary_wavlm_seeds.json": "6b55281a2765d6ce2390039344fd10f684b522dd06eb403685a2562d377d2761",
+    "output/timing_controls.json": "5a647b78f21534df39f68d89bdbf53fbc5ab913d7c4632d10273c206d587a97f",
+    "scripts/build_pdch_cache.py": "0ef311068546bf3b1fa9dce749fb6762ec97aed60250c7ab5927fb89412336dd",
+    "scripts/official_split_sensitivity.py": "d9dd5ec2e1d0c9b3a768ac44033da1c5293b15977fe504ab66c341e45497b1f3",
+    "scripts/revision_context.py": "8b2e9c889f7e9ace081f9a5e55715cf9a2d113e8722ef65ee89982d24387163a",
+    "scripts/run_revision_experiment.py": "84d6fc57beaad987ecc46da03d29bd2dc5795633629bd19b3db56ee2b1aa9db3",
+    "scripts/spike_pdch_vad.py": "0f92813345c7e5609918bff9b5b5f04d7429fdc8bdc95133761bd4e1ecdaddce",
+    "src/acoustic-depr-wavlm/config.py": "d670c37e7b0d43104abafd8b9378c1042a9143bf65ce23dadc1581fd690e7703",
+    "src/acoustic-depr-wavlm/data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/acoustic-depr-wavlm/data/audio_utils.py": "60454e57d9b2542b837a7aa9c3f922f5c20fb9f7c36600cda83448ba325e4c63",
+    "src/acoustic-depr-wavlm/data/qa_pairing.py": "ab7e78e16a9ec33bf2399687e003506d27bd274c8745ea750a7604f55383c466",
+    "src/acoustic-depr-wavlm/data/splits.py": "29e60af60bedde4d0e59b43d75a9503eb253d5b5f0bc831087ff2ead155fea79",
+    "src/acoustic-depr-wavlm/data/transcript.py": "751c147ac67deed104d4fe12a6c58cb20905148577e1d7ccf6cbc4199fe36897",
+    "src/acoustic-depr-wavlm/dataset.py": "11c5bb3189d095bf3206c2db1b3982e1a585b6fee8603dc43fd8253fe147d277",
+    "src/acoustic-depr-wavlm/evaluate.py": "d972d3a2bfb2335b4796358410ae21331e2aead71d4d950d138d2ee9b12a22ae",
+    "src/acoustic-depr-wavlm/extract_fusion_emb.py": "fdb23bff40dd0c13a6688a00d151cf64900ef36e6b594adf79210f3cc4a74176",
+    "src/acoustic-depr-wavlm/features/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/acoustic-depr-wavlm/features/wavlm_extractor.py": "0ee9ed5118d80c0b3ed261538a32fb108572041ff3173a4bbb553db3bf307ea7",
+    "src/acoustic-depr-wavlm/metrics.py": "ac730fbb1c4ff1a8c1f4f62f08bcdc60e9eb57d36f9df003073d82d2a29b0c9b",
+    "src/acoustic-depr-wavlm/model/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/acoustic-depr-wavlm/model/attention_pool.py": "eb1fd07bfe9124f1afcfe05add04e0871430b022fd3540c469f590b95e725e7d",
+    "src/acoustic-depr-wavlm/model/full_model.py": "e13a79e9ed66ede1351fbd4a6934bb0ee1cac73839b154e87611e5d2175d15f1",
+    "src/acoustic-depr-wavlm/model/layer_weighting.py": "79ed597c7e28a28681326ccd45bb977e56dbdf40cd714a5c57ee86086fc4f2c8",
+    "src/acoustic-depr-wavlm/pick_best_and_eval.py": "45d903de41b525fbe1233b55dcc02bb72e7c86ba08d3060ba88d83536dd4cf2e",
+    "src/acoustic-depr-wavlm/preprocess.py": "25f36920aa848d8c3f0b8a9303b818e583fdafc68e16deaa7ba8e98b20a1f41a",
+    "src/acoustic-depr-wavlm/third_party/confidence_intervals/__init__.py": "c632c33a814b11bc54387472915932ae4517fe92ec11fd775635cc04ebcbbbec",
+    "src/acoustic-depr-wavlm/third_party/confidence_intervals/confidence_intervals.py": "d078b0126fea03790490224871380420c4848fb1ec0f3a55770051d1bfb76a82",
+    "src/acoustic-depr-wavlm/third_party/confidence_intervals/utils.py": "d956522445110c1238a2d124267f99605795d4f1722e989c2b2fb21454a5020f",
+    "src/acoustic-depr-wavlm/train.py": "75e70bfad896c3c7e9477d98941f8e707b8546aca69fb69a17f0fdab7f07c2d7",
+    "src/common/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/common/daic_cleaning.py": "212c741788daaf68a50f896cb27941edc42748b161464f7d4b68fe923c929dde",
+    "src/common/transcript_preprocessing.py": "ea3583f70d51dfac8e09066cf0b9888feda4a415284d0f3fd9ce820a979b964b",
+    "src/ctd/ablation_groups.py": "1573460c17906af2591ecc48c0919e0d4bb548446f2c3e9b968c1f62af17cf71",
+    "src/ctd/bags.py": "96a7b285ae854a53219d5f9f30d58d6aa62897faafbf3c0c1470b4a25b281040",
+    "src/ctd/constants.py": "a9d40cb680beb064960ad9c345114645eaa3df6dd3dfc15755b02188c9458802",
+    "src/ctd/data_loading.py": "563e6a4b3bfd3b6724ffe2b83dd25c98d6344ddb1a57bcff8c3d7bae20aae56e",
+    "src/ctd/feature_extraction.py": "f3f46fcb5b5358809746214e4211272d0dda167e2b14f4b004d25d38c51ba705",
+    "src/ctd/feature_groups.py": "42641be8873f418878723853c4e910d7e0d46018e6b762b93b62b7c28c49f4e3",
+    "src/ctd/functionals.py": "bf83be98bbddb25703c71659b6aac8241111b95f3a09289b8dfdec75ee07c576",
+    "src/ctd/interpret.py": "9d1fd48cc528885c7c79876894b94bbc2316db394b9194d2da976469e9fac1af",
+    "src/ctd/ml_splits.py": "c171298f36f82092fce352486617d5f2144de9526f572410d7f43ed637e2987d",
+    "src/ctd/outputs/functionals_dev.csv": "55a2fa7782122e7f60897860d12183ae3f4affdeb77c48b30bcb3535a74c5a30",
+    "src/ctd/outputs/functionals_test.csv": "c68cc6934aeee7b757b4a72e88fcfaaaaca32d5030c8122848f4ffd05d225ae0",
+    "src/ctd/outputs/functionals_train.csv": "8b0e642bbaac235c537b4b55da68c75cc4f757ac758c99953d93ecf3b7e7d105",
+    "src/ctd/pdch_adapter.py": "861c47d46fd6ff218c14d583af910fe1231e2be3808a09b2e2e99040c16a0177",
+    "src/ctd/pdch_experiment.py": "548bb046e7ad52390a1c27af36916f4822b3f0dd10ee428a29135c8bd7833333",
+    "src/ctd/pdch_features.py": "79372c3c8294b40d21a886caf072d126dc667e06fb14957978b842a871b0f504",
+    "src/ctd/pdch_labels.py": "c62c9cb5b477add8a9d2b13fb2d66a1c83b49dc6b78f9480bb44f2c7ecce3503",
+    "src/ctd/resampling.py": "a16aba3207b366d147b6da3fc11335e9adefea107077deb6ea1e4284ffd8b049",
+    "src/ctd/shared_signal_audit.py": "79861c725c9b84ed179ccbb14ffbe76fb01660b7bc6792772c6f79f34606b4e7",
+    "src/ctd/timing_controls.py": "7f2ff8c35f52b7537a11da98590b0b439dbc27066e18da42f764ecffe48f7a50",
+    "src/ctd/turn_pairing.py": "bf07d70e0f3ae23d5431d819a68beb096c26edddeadc95ccdb348b7ca1dd0b17",
+    "src/fusion/check_splits.py": "2111ef5502b3202d8e2e186f3377a33ca9339d061af8d9f35bc90693faad0350",
+    "src/fusion/extract_ctd_roberta.py": "5eb1fd49a93ab9b4154f1c8b5a9a94e92cb8f48c6416347519263aa486142a28",
+    "src/fusion/fusion_late.py": "17c628a022a80c387f07292146192a78de4353c1bf6abb51e79ff4b236197ca8",
+    "src/fusion/paired_delta_analysis.py": "b9111e01998839247fb3c8c9257d62110264fac59d0fdbbfe40113a0eaffc42b",
+    "src/fusion/run_fusion_wavlm_seeds.py": "fd027aa3e4ad72b5c8eb35c057af5aabcd8d37e98925ec4763810c300362480d",
+    "src/semantic-depr-roberta/_bootstrap.py": "580b839f41ccc5020022771ce4f837021b8317155611bf39ee1cca7cdb8fc226",
+    "src/semantic-depr-roberta/datasets/__init__.py": "62be68e10d5b797027fcb441cc518b81e6fbe8a7a7df8b69efacb1012b8f9a20",
+    "src/semantic-depr-roberta/datasets/bags.py": "b8b2cf4c1e3bde7f02324c4c410dedd4858643870743ff6faf04f3b3d2e7006b",
+    "src/semantic-depr-roberta/datasets/daic.py": "8b9ffe23877a48e8faa0dcb16b0037fb7d68ca5a84e4b735a4a30a0598f9a1db",
+    "src/semantic-depr-roberta/evaluate.py": "96efd882c239c67797b79562bf40b4344a071eb91226233ca2d718538fbddde1",
+    "src/semantic-depr-roberta/evaluation/__init__.py": "572214fafd8e65a949f30063d2ddf598fc5c13ec306eaa0a3e88bd2faf07f9b8",
+    "src/semantic-depr-roberta/evaluation/evaluate_run.py": "e750d58afe5942652e4ec45292c3ec26f0741489dbf2777e1b101a755faaaadf",
+    "src/semantic-depr-roberta/evaluation/figures.py": "5e1d57f6d2b3ff3337ed6e9e926f74757005d0b6199fb119b36ef9b0695efa68",
+    "src/semantic-depr-roberta/evaluation/metrics.py": "c077ee66bbae24ee1f57b65177ae4035f97a541025aadc2a8fb44ac557512a02",
+    "src/semantic-depr-roberta/evaluation/reporting.py": "fa6615fce38853680430c47ba036e653703cbd7c3b84d65fb4262f6a78a5c264",
+    "src/semantic-depr-roberta/models/__init__.py": "5bfd5e959f4f4ee8d616eed61cde71232669eef3fd4383da34666e43a04e1c96",
+    "src/semantic-depr-roberta/models/roberta_mil.py": "39386068c00d9641124934d67b59c7928a18af7769b8701974b4bfb3593af4a3",
+    "src/semantic-depr-roberta/predict.py": "4b9b1d51b01104192f4055cd76bc883cb1b3af60da3ef260293f0d936ac06e58",
+    "src/semantic-depr-roberta/prepare_dataset.py": "c81d6d735a3bd33752ff3c7c202499bd20eeb4906ee7d26178144af3671f0c8e",
+    "src/semantic-depr-roberta/run_all_experiments.py": "7381dd349862ae1bf92ca1c78cbfd05267863aa0a03f261cde56815f1be35474",
+    "src/semantic-depr-roberta/train.py": "7dc990da41bac5da1b1dd3a4c0877d7da01c6e7eecbd4c9dbac1e9a65fb934ba",
+    "src/semantic-depr-roberta/training/__init__.py": "c682e3f9de18c72f499d54c06eb81271be2692d85de47725a8eacc29d9135572",
+    "src/semantic-depr-roberta/training/config.py": "9a43f29e727153586e00e2176de5fda09c9681de2d8d132d923558bab890fc4e",
+    "src/semantic-depr-roberta/training/preflight.py": "9ecccb85d9d99fc3fa0ca5d0974b86b217548b1385c664c2bce5f0a0b6ccd4ae",
+    "src/semantic-depr-roberta/training/runner.py": "40b88cdd20eb8910fb7047ab399fa6ae9e606ef1788cbb0e6c982220e0902ae5",
+    "src/semantic-depr-roberta/training/utils.py": "25fd43160532e68da8041ace892ed56283e654b973729708a14202e9268cbfdf",
+    "src/semantic-depr-roberta/training/wandb_utils.py": "30ea16f31b53ab2a4de148432af24ecbe7b3858d0b17a13fc1d49f2a516e1e8f"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 99.89772264705971,
+  "finished_utc": "2026-09-24T05:51:20.808016+00:00",
+  "output_sha256": {
+    "output/ctd_interpretability.json": "7d14724d5e9b52a1b22613ed84b239f35f0276d1f82a6bd116f5a78936321d78",
+    "output/fusion_wavlm_seed44.json": "b2be0ece82cc8c10407a1a2925d2f85185cf6eb48527fa3260fe003a9a8ff240",
+    "output/timing_controls.json": "5a647b78f21534df39f68d89bdbf53fbc5ab913d7c4632d10273c206d587a97f",
+    "output/mean_prob_seed44.json": "912eb369330b7b074a9f101ecd13029345ae88cd37acf14449659477c9f4d374",
+    "output/RESULTS.json": "294d6ce62a2fe4353f59f23c37413b980af80c3f9023734158741ae95155ff5c",
+    "output/official_split_ctd.json": "82e6ed7d32853d7c208dd32bb32c43e930547a214e38bc3eb5498538e2cdc1c8",
+    "output/ctd_resampling.json": "31fc3394a8c8bd0e3d0794a6b6b91b86f8fa7b83e91fc487a3035df5274d2e0c",
+    "output/pdch_ctd_results.json": "38192c0db182e6220b5b2330d6850530e5291cbd8dd2801fce63df2eb9459194",
+    "output/summary_wavlm_seeds.json": "6b55281a2765d6ce2390039344fd10f684b522dd06eb403685a2562d377d2761",
+    "output/ctd_ablation_groups.json": "61ad434f2c0bbf756f6c3a728caf971a1d05c4ac64131f5a9cbc572d1fd9d75e",
+    "output/revision_review_context.json": "2d18850d3276e492a38de3ad010179a8b9bde0334bf3ebba091fb05b80717eb3",
+    "output/shared_signal_audit.json": "f4a17993ec3d361ab7ab2bf19daff8b3a145541a2b06167416d3334c12be5369"
+  },
+  "gate_md5": "ca0b9cb2dd4c799b3a7c12532ceafd7e",
+  "gate_result": {
+    "protocol": "train=fit, dev=select, test=report (refit on train+dev); 2000-bootstrap 95% CI",
+    "cohort": {
+      "train": {
+        "n": 102,
+        "n_depressed": 29
+      },
+      "dev": {
+        "n": 33,
+        "n_depressed": 12
+      },
+      "test": {
+        "n": 45,
+        "n_depressed": 14
+      }
+    },
+    "session_mean_24d": {
+      "tag": "CTD session-mean (24-D)",
+      "n_features": 24,
+      "models": {
+        "logreg_l2": {
+          "selected_hyperparam": "C=0.3",
+          "dev": {
+            "balanced_accuracy": 0.7559523809523809,
+            "macro_f1": 0.7461538461538462,
+            "f1_depressed": 0.6923076923076923,
+            "roc_auc": 0.8412698412698413,
+            "accuracy": 0.7575757575757576
+          },
+          "test": {
+            "balanced_accuracy": {
+              "point": 0.6405529953917051,
+              "ci_low": 0.48156468680662223,
+              "ci_high": 0.7914734222134601
+            },
+            "macro_f1": {
+              "point": 0.6309458720612356,
+              "ci_low": 0.4722080571137175,
+              "ci_high": 0.7710570944036179
+            },
+            "f1_depressed": {
+              "point": 0.5161290322580645,
+              "ci_low": 0.2727272727272727,
+              "ci_high": 0.7058823529411765
+            },
+            "roc_auc": {
+              "point": 0.6566820276497696,
+              "ci_low": 0.46119935788278693,
+              "ci_high": 0.8318965517241379
+            },
+            "accuracy": {
+              "point": 0.6666666666666666
+            }
+          }
+        },
+        "logreg_l1": {
+          "selected_hyperparam": "C=0.3",
+          "dev": {
+            "balanced_accuracy": 0.7619047619047619,
+            "macro_f1": 0.7664307381193125,
+            "f1_depressed": 0.6956521739130435,
+            "roc_auc": 0.8095238095238095,
+            "accuracy": 0.7878787878787878
+          },
+          "test": {
+            "balanced_accuracy": {
+              "point": 0.6474654377880185,
+              "ci_low": 0.48333333333333334,
+              "ci_high": 0.7929220779220776
+            },
+            "macro_f1": {
+              "point": 0.6098929117797043,
+              "ci_low": 0.44976076555023925,
+              "ci_high": 0.751131221719457
+            },
+            "f1_depressed": {
+              "point": 0.5405405405405406,
+              "ci_low": 0.3125,
+              "ci_high": 0.717948717948718
+            },
+            "roc_auc": {
+              "point": 0.7004608294930875,
+              "ci_low": 0.5236781339123672,
+              "ci_high": 0.8529411764705882
+            },
+            "accuracy": {
+              "point": 0.6222222222222222
+            }
+          }
+        },
+        "svm_rbf": {
+          "selected_hyperparam": "C=3.0",
+          "dev": {
+            "balanced_accuracy": 0.8392857142857142,
+            "macro_f1": 0.8139097744360901,
+            "f1_depressed": 0.7857142857142857,
+            "roc_auc": 0.8373015873015873,
+            "accuracy": 0.8181818181818182
+          },
+          "test": {
+            "balanced_accuracy": {
+              "point": 0.6048387096774194,
+              "ci_low": 0.44925027929060185,
+              "ci_high": 0.7642857142857142
+            },
+            "macro_f1": {
+              "point": 0.6,
+              "ci_low": 0.4444444444444444,
+              "ci_high": 0.7407834101382489
+            },
+            "f1_depressed": {
+              "point": 0.4666666666666667,
+              "ci_low": 0.21428571428571427,
+              "ci_high": 0.6666666666666666
+            },
+            "roc_auc": {
+              "point": 0.596774193548387,
+              "ci_low": 0.3938686868686868,
+              "ci_high": 0.8021576768819415
+            },
+            "accuracy": {
+              "point": 0.6444444444444445
+            }
+          }
+        },
+        "random_forest": {
+          "selected_hyperparam": "leaf=4",
+          "dev": {
+            "balanced_accuracy": 0.6607142857142857,
+            "macro_f1": 0.6674132138857782,
+            "f1_depressed": 0.5263157894736842,
+            "roc_auc": 0.7222222222222222,
+            "accuracy": 0.7272727272727273
+          },
+          "test": {
+            "balanced_accuracy": {
+              "point": 0.565668202764977,
+              "ci_low": 0.41309603386809274,
+              "ci_high": 0.7166666666666667
+            },
+            "macro_f1": {
+              "point": 0.5673076923076923,
+              "ci_low": 0.4050480769230769,
+              "ci_high": 0.7159090909090909
+            },
+            "f1_depressed": {
+              "point": 0.38461538461538464,
+              "ci_low": 0.125,
+              "ci_high": 0.6153846153846154
+            },
+            "roc_auc": {
+              "point": 0.5207373271889402,
+              "ci_low": 0.3248509081051775,
+              "ci_high": 0.7155811051693403
+            },
+            "accuracy": {
+              "point": 0.6444444444444445
+            }
+          }
+        }
+      }
+    },
+    "functionals_240d": {
+      "tag": "CTD functionals (240-D)",
+      "n_features": 240,
+      "models": {
+        "logreg_l2": {
+          "selected_hyperparam": "C=0.01",
+          "dev": {
+            "balanced_accuracy": 0.6071428571428572,
+            "macro_f1": 0.6071428571428572,
+            "f1_depressed": 0.5,
+            "roc_auc": 0.6190476190476191,
+            "accuracy": 0.6363636363636364
+          },
+          "test": {
+            "balanced_accuracy": {
+              "point": 0.5887096774193548,
+              "ci_low": 0.43388020833333335,
+              "ci_high": 0.7442396313364055
+            },
+            "macro_f1": {
+              "point": 0.5817386550027337,
+              "ci_low": 0.4318181818181818,
+              "ci_high": 0.7201808931599774
+            },
+            "f1_depressed": {
+              "point": 0.45161290322580644,
+              "ci_low": 0.21428571428571427,
+              "ci_high": 0.6470588235294118
+            },
+            "roc_auc": {
+              "point": 0.5622119815668203,
+              "ci_low": 0.37427200577200576,
+              "ci_high": 0.7399200336700336
+            },
+            "accuracy": {
+              "point": 0.6222222222222222
+            }
+          }
+        },
+        "logreg_l1": {
+          "selected_hyperparam": "C=0.1",
+          "dev": {
+            "balanced_accuracy": 0.6547619047619048,
+            "macro_f1": 0.6590909090909091,
+            "f1_depressed": 0.5454545454545454,
+            "roc_auc": 0.6587301587301587,
+            "accuracy": 0.696969696969697
+          },
+          "test": {
+            "balanced_accuracy": {
+              "point": 0.6117511520737328,
+              "ci_low": 0.44949919871794874,
+              "ci_high": 0.7651515151515151
+            },
+            "macro_f1": {
+              "point": 0.5833333333333333,
+              "ci_low": 0.4263131055583886,
+              "ci_high": 0.7222222222222222
+            },
+            "f1_depressed": {
+              "point": 0.5,
+              "ci_low": 0.27586206896551724,
+              "ci_high": 0.6666666666666666
+            },
+            "roc_auc": {
+              "point": 0.7050691244239632,
+              "ci_low": 0.533728250915751,
+              "ci_high": 0.8611111111111112
+            },
+            "accuracy": {
+              "point": 0.6
+            }
+          }
+        },
+        "svm_rbf": {
+          "selected_hyperparam": "C=0.5",
+          "dev": {
+            "balanced_accuracy": 0.6547619047619048,
+            "macro_f1": 0.6590909090909091,
+            "f1_depressed": 0.5454545454545454,
+            "roc_auc": 0.23412698412698416,
+            "accuracy": 0.696969696969697
+          },
+          "test": {
+            "balanced_accuracy": {
+              "point": 0.45622119815668205,
+              "ci_low": 0.29809700868983957,
+              "ci_high": 0.6202074579831932
+            },
+            "macro_f1": {
+              "point": 0.4444444444444444,
+              "ci_low": 0.2986425339366516,
+              "ci_high": 0.5833333333333333
+            },
+            "f1_depressed": {
+              "point": 0.3333333333333333,
+              "ci_low": 0.125,
+              "ci_high": 0.5238095238095238
+            },
+            "roc_auc": {
+              "point": 0.42626728110599077,
+              "ci_low": 0.23930499325236168,
+              "ci_high": 0.6275720164609053
+            },
+            "accuracy": {
+              "point": 0.4666666666666667
+            }
+          }
+        },
+        "random_forest": {
+          "selected_hyperparam": "leaf=4",
+          "dev": {
+            "balanced_accuracy": 0.5595238095238095,
+            "macro_f1": 0.5254901960784314,
+            "f1_depressed": 0.26666666666666666,
+            "roc_auc": 0.7658730158730159,
+            "accuracy": 0.6666666666666666
+          },
+          "test": {
+            "balanced_accuracy": {
+              "point": 0.5460829493087558,
+              "ci_low": 0.41309795081079914,
+              "ci_high": 0.6893939393939394
+            },
+            "macro_f1": {
+              "point": 0.5454545454545454,
+              "ci_low": 0.3915343915343915,
+              "ci_high": 0.6953986486486486
+            },
+            "f1_depressed": {
+              "point": 0.3333333333333333,
+              "ci_low": 0.08695652173913043,
+              "ci_high": 0.56
+            },
+            "roc_auc": {
+              "point": 0.564516129032258,
+              "ci_low": 0.38127278423331057,
+              "ci_high": 0.7400096153846153
+            },
+            "accuracy": {
+              "point": 0.6444444444444445
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -37,7 +37,13 @@ def _silence_gap_count(utts: list[Utterance], threshold: float = 0.2) -> int:
     return sum(1 for i in range(len(utts) - 1) if utts[i + 1].start - utts[i].end > threshold)
 
 
-def extract_turn_features(pair: TurnPair) -> dict[str, float]:
+def extract_turn_features(pair: TurnPair, silence_threshold: float = 0.2) -> dict[str, float]:
+    """24 CTD features for one turn pair.
+
+    `silence_threshold` is the intra-turn gap (seconds) that counts as a
+    silence for `ask_st`/`res_st`. The 0.2 s default is DAIC-WOZ-tuned and
+    unchanged; PDCH re-selects it within training folds (`MC-08`).
+    """
     ask_utts = sorted(pair.ask_utts, key=lambda u: u.start)
     res_utts = sorted(pair.res_utts, key=lambda u: u.start)
     next_ask_utts = sorted(pair.next_ask_utts, key=lambda u: u.start)
@@ -60,8 +66,8 @@ def extract_turn_features(pair: TurnPair) -> dict[str, float]:
         ask_bt = 0
 
     res_bt = sum(1 for u in res_utts if u.start < ask_utts[-1].end)
-    ask_st = _silence_gap_count(ask_utts)
-    res_st = _silence_gap_count(res_utts)
+    ask_st = _silence_gap_count(ask_utts, silence_threshold)
+    res_st = _silence_gap_count(res_utts, silence_threshold)
 
     feats = {
         "ask_d": ask_d,
@@ -93,10 +99,12 @@ def extract_turn_features(pair: TurnPair) -> dict[str, float]:
     return feats
 
 
-def extract_session_turn_features(pairs: list[TurnPair]) -> pd.DataFrame:
+def extract_session_turn_features(
+    pairs: list[TurnPair], silence_threshold: float = 0.2,
+) -> pd.DataFrame:
     rows = []
     for pair in pairs:
-        feats = extract_turn_features(pair)
+        feats = extract_turn_features(pair, silence_threshold)
         row = {"session_id": pair.session_id, "turn_index": pair.turn_index}
         row.update(feats)
         rows.append(row)
