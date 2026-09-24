@@ -1,0 +1,20 @@
+Extracting CTD + functionals per split (train/dev/test)...
+  train: 102 sessions, 29 depressed (28.4%)
+  dev: 33 sessions, 12 depressed (36.4%)
+  test: 45 sessions, 14 depressed (31.1%)
+
+=== CTD session-mean (24-D)  (24 features) ===
+model            sel       dev_bAcc | test bAcc [95% CI]       test AUC [95% CI]        test macroF1 [95% CI]   
+logreg_l2        C=0.3        0.756 | 0.641 [0.482, 0.791]     0.657 [0.461, 0.832]     0.631 [0.472, 0.771]    
+logreg_l1        C=0.3        0.762 | 0.647 [0.483, 0.793]     0.700 [0.524, 0.853]     0.610 [0.450, 0.751]    
+svm_rbf          C=3.0        0.839 | 0.605 [0.449, 0.764]     0.597 [0.394, 0.802]     0.600 [0.444, 0.741]    
+random_forest    leaf=4       0.661 | 0.566 [0.413, 0.717]     0.521 [0.325, 0.716]     0.567 [0.405, 0.716]    
+
+=== CTD functionals (240-D)  (240 features) ===
+model            sel       dev_bAcc | test bAcc [95% CI]       test AUC [95% CI]        test macroF1 [95% CI]   
+logreg_l2        C=0.01       0.607 | 0.589 [0.434, 0.744]     0.562 [0.374, 0.740]     0.582 [0.432, 0.720]    
+logreg_l1        C=0.1        0.655 | 0.612 [0.449, 0.765]     0.705 [0.534, 0.861]     0.583 [0.426, 0.722]    
+svm_rbf          C=0.5        0.655 | 0.456 [0.298, 0.620]     0.426 [0.239, 0.628]     0.444 [0.299, 0.583]    
+random_forest    leaf=4       0.560 | 0.546 [0.413, 0.689]     0.565 [0.381, 0.740]     0.545 [0.392, 0.695]    
+
+Saved -> /home/exouser/projects/depression-detection-ctd/src/ctd/outputs/ml_splits_results.json

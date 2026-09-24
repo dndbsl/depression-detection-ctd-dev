@@ -1,0 +1,26 @@
+{
+  "base_commit": "27289c305e3ead075ce64a734393a1c1e75636df",
+  "title": "Can Conversational Temporal Dynamics Improve Depression Detection in Dyads? A Preliminary Investigation in Multi-Modality Perspectives",
+  "author_order": [
+    "Hanie Kang",
+    "Anisha Pattanayak",
+    "Huang-Cheng Chou",
+    "Sudarsana Reddy Kadiri",
+    "Shrikanth Narayanan"
+  ],
+  "affiliation_numbers": {
+    "1": "Anisha Pattanayak: Ming Hsieh Department of Electrical and Computer Engineering, University of Southern California, USA",
+    "2": "Hanie Kang: Thomas Lord Department of Computer Science, University of Southern California, USA",
+    "3": "Huang-Cheng Chou, Sudarsana Reddy Kadiri, Shrikanth Narayanan: Signal Analysis and Interpretation Laboratory (SAIL), University of Southern California, USA"
+  },
+  "anisha_orcid": "0009-0005-2556-4472",
+  "pdf_pages": 5,
+  "technical_content_within_first_four_pages": true,
+  "fifth_page_references_only": true,
+  "body_from_abstract_unchanged": true,
+  "all_numeric_values_and_sources_unchanged": true,
+  "latex_issues": [],
+  "main_pdf_sha256": "4f2ad0dfdf683f689562f96e8e73b1be7a1a287e6d1502b55b239e83b6bd72ac",
+  "gate_md5": "ca0b9cb2dd4c799b3a7c12532ceafd7e",
+  "experiments_rerun": false
+}

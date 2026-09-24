@@ -1,0 +1,125 @@
+{
+  "source": "output/timing_controls.json",
+  "source_sha256": "5a647b78f21534df39f68d89bdbf53fbc5ab913d7c4632d10273c206d587a97f",
+  "command": "python scripts/plot_paper_timing_controls.py",
+  "experiment_rerun": false,
+  "uncertainty": "Across-repeat SD, not CI; repeats share subjects.",
+  "n_subjects": 135,
+  "n_repeats": 10,
+  "figure": "paper/figures/timing-controls.pdf",
+  "figure_sha256": "6b73262c27e85b145b5d02e5e29ba9f190821b279952738cd1562a6cabeb44ba",
+  "number_keys": [
+    "all24Fmean",
+    "all24Fsd",
+    "all24Amean",
+    "all24Asd",
+    "no_askFmean",
+    "no_askFsd",
+    "no_askAmean",
+    "no_askAsd",
+    "latency_structureFmean",
+    "latency_structureFsd",
+    "latency_structureAmean",
+    "latency_structureAsd",
+    "latencyFmean",
+    "latencyFsd",
+    "latencyAmean",
+    "latencyAsd",
+    "structureFmean",
+    "structureFsd",
+    "structureAmean",
+    "structureAsd"
+  ],
+  "rows": [
+    {
+      "config": "all24",
+      "metric": "Macro-F1",
+      "label": "0.635 \u00b1 0.026",
+      "mean_key": "all24Fmean",
+      "sd_key": "all24Fsd",
+      "mean": 0.6349020746321249,
+      "sd": 0.02649130356305593
+    },
+    {
+      "config": "no_ask",
+      "metric": "Macro-F1",
+      "label": "0.566 \u00b1 0.025",
+      "mean_key": "no_askFmean",
+      "sd_key": "no_askFsd",
+      "mean": 0.5664238464793492,
+      "sd": 0.02521613765279623
+    },
+    {
+      "config": "latency_structure",
+      "metric": "Macro-F1",
+      "label": "0.550 \u00b1 0.025",
+      "mean_key": "latency_structureFmean",
+      "sd_key": "latency_structureFsd",
+      "mean": 0.549837314652059,
+      "sd": 0.02504751393217734
+    },
+    {
+      "config": "latency",
+      "metric": "Macro-F1",
+      "label": "0.531 \u00b1 0.008",
+      "mean_key": "latencyFmean",
+      "sd_key": "latencyFsd",
+      "mean": 0.531164448550056,
+      "sd": 0.008286879585251818
+    },
+    {
+      "config": "structure",
+      "metric": "Macro-F1",
+      "label": "0.499 \u00b1 0.020",
+      "mean_key": "structureFmean",
+      "sd_key": "structureFsd",
+      "mean": 0.4989627935733994,
+      "sd": 0.019707942484248033
+    },
+    {
+      "config": "all24",
+      "metric": "ROC-AUC",
+      "label": "0.676 \u00b1 0.031",
+      "mean_key": "all24Amean",
+      "sd_key": "all24Asd",
+      "mean": 0.6758173326414115,
+      "sd": 0.03124349750185939
+    },
+    {
+      "config": "no_ask",
+      "metric": "ROC-AUC",
+      "label": "0.610 \u00b1 0.030",
+      "mean_key": "no_askAmean",
+      "sd_key": "no_askAsd",
+      "mean": 0.6100674623767515,
+      "sd": 0.030014675811075794
+    },
+    {
+      "config": "latency_structure",
+      "metric": "ROC-AUC",
+      "label": "0.576 \u00b1 0.029",
+      "mean_key": "latency_structureAmean",
+      "sd_key": "latency_structureAsd",
+      "mean": 0.5756097560975609,
+      "sd": 0.028777522302604375
+    },
+    {
+      "config": "latency",
+      "metric": "ROC-AUC",
+      "label": "0.562 \u00b1 0.015",
+      "mean_key": "latencyAmean",
+      "sd_key": "latencyAsd",
+      "mean": 0.5622729631551635,
+      "sd": 0.015309503059453708
+    },
+    {
+      "config": "structure",
+      "metric": "ROC-AUC",
+      "label": "0.535 \u00b1 0.027",
+      "mean_key": "structureAmean",
+      "sd_key": "structureAsd",
+      "mean": 0.5346912298910224,
+      "sd": 0.027414004767238497
+    }
+  ]
+}

@@ -1,12 +1,15 @@
-# Full Results — DAIC-WOZ Depression Detection (Single Models + Late Fusion)
+# Recorded Results — DAIC-WOZ Depression Detection (Single Models + Late Fusion)
 
 **Dataset:** standard cleaned DAIC-WOZ splits (AVEC2017)
 **Cohorts:** train 102 · **dev 33** · **test 45**
 **Label:** `PHQ8_Binary = (PHQ8_Score ≥ 10)`
-**Primary metric:** macro-F1 with **2000-bootstrap 95% confidence intervals** (Ferrer & Riera; `confidence_intervals` package, α=5)
+**Metric:** macro-F1 with **2000-bootstrap 95% confidence intervals** (Ferrer & Riera; `confidence_intervals` package, α=5)
 
-**Protocol:** all hyperparameter / weight / threshold choices are made on **dev**.
-**dev = primary report** · **test = held-out side report** (never used for selection).
+**Protocol correction (2026-09-24):** the recorded WavLM seed-44 choice below
+uses best test macro-F1, so the blanket claim that all choices use dev is
+incorrect. The seed-44 acoustic comparison is descriptive and subject to
+selection bias. Development scores are selection results; later analyses also
+revisit test subjects. The original numeric results below are retained.
 
 **Source:** `src/fusion/run_fusion_wavlm_seeds.py --wavlm-seeds 44`
 → [`output/fusion_wavlm_seed44.json`](output/fusion_wavlm_seed44.json)
@@ -37,16 +40,15 @@ modality probabilities, grid-searched on dev together with the decision threshol
 
 **Takeaways**
 
-- **Semantic + CTD** beats every single modality on **both** dev (0.746→0.804) and test (0.631→0.669).
-- **Acoustic (WavLM seed 44)** does not improve the best fusion; the all-3 optimum excludes it (weight 0.0).
-- CTD alone matches RoBERTa on test (both 0.631) but is strongest on dev (0.746).
+- **Semantic + CTD** has higher recorded point estimates (dev 0.746→0.804 versus CTD; test 0.631→0.669 versus either component), but the recorded paired intervals include or touch zero. No reliable multimodal advantage is established.
+- The all-3 optimum assigns acoustic weight 0.0 in this particular frozen-probe run and grid; this does not establish acoustic redundancy.
+- CTD and RoBERTa have the same rounded test point estimate, 0.631. This is not an equivalence result.
 
 ---
 
 ## 2. Single-modality models (deployed detectors)
 
-Each model was trained/selected independently on dev. Fusion uses the **deployed
-per-session probabilities** from these exact checkpoints — not a re-fit probe.
+Checkpoint and threshold selection used dev; the WavLM deployed seed choice additionally used test, as disclosed above. Fusion uses the **recorded per-session probabilities** from these checkpoints.
 
 ### 2.1 Acoustic — WavLM-large (`single_wavlm`)
 
@@ -175,7 +177,7 @@ Point estimate and [95% CI] for every reported configuration. Fusion = `wconvex`
 
 ### 4.3 Alternative fusion — equal-weight `mean_prob` (parameter-free weights)
 
-Conservative no-tuning comparison (only the threshold is tuned on dev; WavLM seed 44):
+Fixed-weight comparison (the threshold is tuned on dev; WavLM seed 44):
 
 | Config | DEV macro-F1 [95% CI] | TEST macro-F1 [95% CI] |
 |---|---|---|
@@ -210,3 +212,139 @@ Requires: `numpy`, `pandas`, `scikit-learn`, `torch`, `confidence_intervals`.
 | `output/mean_prob_seed44.json` | `mean_prob` fusion metrics (seed 44) |
 | `output/summary_wavlm_seeds.json` | Fusion summary across WavLM seeds |
 | `output/RESULTS.json` | Compact JSON summary of the 7 headline configurations |
+
+---
+
+## 7. CTD interpretability, ablation, and variability (ICASSP 2027 revision)
+
+Answers SLT-04, SLT-05, SLT-10 (`reviews/slt2026/action-items.md`). All three
+use the identical deployed CTD protocol (§2.3) unless noted; none change the
+deployed model. Code: `src/ctd/interpret.py`, `ablation_groups.py`,
+`resampling.py`, `feature_groups.py`. Reproduction gate confirmed first
+(`tests/test_ctd_consistency.py`): the `ml_splits.py` and `fusion_late.py` CTD
+implementations agree exactly on session-mean features and fitted
+probabilities.
+
+### 7.1 Interpretability (SLT-04)
+
+Deployed model fit on train (n=102); bootstrap B=2000. Top 5 by |standardized
+coefficient|, with sign-consistency rate and dev permutation importance:
+
+| Feature | Group | Coef [95% CI] | Sign-consistency | Perm. importance (dev) |
+|---|---|---|---:|---:|
+| `ask_d` | ask | −0.867 [−1.290, −0.440] | 1.00 | 0.243 |
+| `ask_bt` | ask | −0.516 [−0.976, −0.077] | 0.99 | 0.024 |
+| `ask_st` | ask | 0.429 [−0.020, 0.994] | 0.97 | −0.048 |
+| `res_h` | cross | 0.210 [−0.322, 0.704] | 0.77 | 0.048 |
+| `res_st` | res | 0.203 [−0.289, 0.591] | 0.77 | 0.041 |
+
+The largest |coefficient| is `ask_d`. The `res_h` binary associations are positive across train/dev/test (point-biserial r: +0.104 / +0.296 / +0.528); these inspected split estimates do not validate a psychomotor mechanism. The favorable single-feature test headline is retired (SA-01).
+
+**New finding beyond the documented 8 reciprocal pairs:** the collinearity
+diagnostic found *exact* (|r| = 1.0) linear dependencies at the session-mean
+level between features not previously flagged as a pair, e.g. `ask_ud` /
+`ask_sd` (r = −1.0000). This makes the design matrix rank-deficient, so plain
+VIF is not meaningful here (blows up uniformly to ~1e15); use the correlation
+matrix and pair-level |coef| aggregation instead. Full tables, forest plot:
+[`output/ctd_interpretability.md`](output/ctd_interpretability.md),
+[`output/ctd_coef_forest.png`](output/ctd_coef_forest.png).
+
+### 7.2 Ask-side ablation (SLT-05)
+
+Identical deployed protocol (LogReg L2, **C selected on dev balanced
+accuracy** per config — not fixed at 0.3):
+
+| Config | n | Selected C | Dev bAcc | Dev macro-F1 | Test macro-F1 [95% CI] |
+|---|---:|---:|---:|---:|---|
+| `all24` (published) | 24 | 0.3 | 0.756 | 0.746 | 0.631 [0.472, 0.771] |
+| `no_ask` | 15 | 1.0 | 0.839 | 0.814 | 0.641 [0.482, 0.791] |
+| `res_only` | 8 | 1.0 | 0.607 | 0.607 | 0.517 [0.273, 0.711] |
+| `ask_only` | 9 | 0.01 | 0.595 | 0.594 | 0.593 [0.436, 0.741] |
+| `no_cross` | 17 | 0.1 | 0.696 | 0.700 | 0.527 [0.377, 0.676] |
+
+**Paired bootstrap, `all24` − `no_ask` macro-F1** (B=2000, same held-out
+sessions resampled jointly): dev **−0.068** [−0.216, 0.083], test **−0.010**
+[−0.089, 0.054] — **both CIs include zero**. Verdict: **no clear difference detected** under this split. Neither equivalence nor removal of interviewer confounding follows. Nested controls below show sensitivity to ask-side removal.
+
+**Note on the rebuttal numbers:** the SLT rebuttal reported `no_ask` at dev
+.752 / test .661 by reusing the full model's `C=0.3`. Reselecting C per config
+(the actual deployed protocol) gives `no_ask` `C=1.0`, dev .814 / test .641 —
+the test delta vs. `all24` shrinks from the rebuttal's claimed +.030 to +.010,
+and does not establish equivalence. Use the numbers in this table for the
+paper, not the rebuttal-era ones. 5 configs × 1 test look each = 5 uncorrected
+looks at test; dev is primary. Full table:
+[`output/ctd_ablation_groups.md`](output/ctd_ablation_groups.md).
+
+### 7.3 Variability via data resampling (SLT-10)
+
+The CTD fit is deterministic (seed variance = 0.000), so rwao's seed-sweep
+request is reframed as data resampling: 100x repeated stratified-group
+resampling of train+dev (group-aware via `session_id`, reusable for PDCH's
+2-sessions/subject structure), refit + re-select C on the resampled held-out
+portion each repeat, then refit on the full train+dev pool and evaluate once
+on the same original test cohort.
+
+| Metric (held-out, over 100 repeats) | Mean ± SD |
+|---|---:|
+| Balanced accuracy | 0.648 ± 0.074 |
+| Macro-F1 | 0.630 ± 0.069 |
+| AUROC | 0.679 ± 0.073 |
+
+- **C is not stable**: modal selection is a tie between C=0.1 and C=1.0 (26%
+  of repeats each); the deployed C=0.3 wins only 19% of repeats. Report C=0.3
+  as one plausible choice, not uniquely optimal.
+- **Head-to-head vs. RoBERTa** (test macro-F1 0.631): CTD's resampled test
+  macro-F1 is **0.611 ± 0.031**, and it **beats RoBERTa in 0% of the 100
+  repeats**. The published "CTD ties RoBERTa on test" result sits at or near
+  the ceiling of what this procedure ever reproduces on this test set — a more
+  cautious, more honest answer to "is CTD really the best single modality"
+  than resting on the one official split, and should replace that framing in
+  the paper rather than merely supplement it.
+
+Full report: [`output/ctd_resampling.md`](output/ctd_resampling.md).
+
+## 2026-09-24 — Nested simple timing controls (exploratory)
+
+See [protocol](docs/timing-controls-protocol.md) and
+[complete results](output/timing_controls.md). Only the 135 train+dev subjects
+are used; the new script never reads the official test cohort. Five outer
+folds, four inner folds, ten identical repeats, inner-only C selection and
+training-fold preprocessing. These are timing-only models, not fusion reruns.
+
+| Representation | Macro-F1 mean ± SD | AUC mean ± SD |
+|---|---:|---:|
+| all24 | .635 ± .026 | .676 ± .031 |
+| no_ask | .566 ± .025 | .610 ± .030 |
+| latency | .531 ± .008 | .562 ± .015 |
+| interview structure | .499 ± .020 | .535 ± .027 |
+| latency + structure | .550 ± .025 | .576 ± .029 |
+
+Full CTD has higher mean scores than the simple controls, but the no-ask
+reduction challenges a general claim of interviewer-feature dispensability.
+Repeated evaluations share subjects; these SDs are not confidence intervals.
+The older resampling validation scores above are selection-set scores, since
+those same subsets selected C; they should not be labeled nested evaluation.
+
+The paper now distinguishes original results, subsequent analyses and their
+selection history. [Revision audit and outstanding work](docs/revision-audit-20260924.md).
+
+## 2026-09-24 — Bounded ICASSP revision
+
+The current scientific interpretation and per-number provenance are in
+[the revision audit](docs/revision-audit-20260924.md) and
+[the generated number ledger](output/paper_numbers.md). Neural/fusion scores
+above describe recorded runs; missing raw embeddings, checkpoints and session
+predictions prevent rerunning them or performing nested fusion. WavLM seed
+44 was selected on test performance; its six-seed mean remains disclosed.
+The older resampling head-to-head comparison is not used in the paper: it
+compares a resampled CTD distribution with a selected neural run.
+
+CTD carries DAIC-WOZ information beyond simple latency and interview-structure
+controls, with sensitivity to interviewer features and protocol. Fusion gains
+remain statistically inconclusive. PDCH supplies boundary evidence, with no
+reliable within-corpus discrimination; no detector transfer, construct
+validation, or reliable multimodal advantage is claimed.
+
+Official-cohort CTD sensitivity and its missing-timing caveat are reported in
+[`output/official_split_ctd.md`](output/official_split_ctd.md). No stronger
+acoustic baseline or matched reproduction of Agarwal et al. was run.

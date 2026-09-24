@@ -1,0 +1,147 @@
+% ICASSP 2027: spconf layout; requested IEEEtran bibliography style.
+\documentclass{article}
+\usepackage{spconf,amsmath,amssymb,graphicx,hyperref}
+\usepackage{booktabs,url}
+% spconf/article does not define IEEEtran's bibliography control command.
+\makeatletter
+\providecommand{\bstctlcite}[1]{\@bsphack\if@filesw
+  \immediate\write\@auxout{\string\citation{#1}}\fi\@esphack}
+\makeatother
+\hypersetup{hidelinks}
+\input{generated-numbers}
+\title{Can Conversational Temporal Dynamics Improve Depression Detection in Dyads? A Preliminary Investigation in Multi-Modality Perspectives}
+% Blind review: restore real names/affiliations for camera-ready.
+\name{Anonymous Authors}
+\address{Anonymous Affiliation}
+
+\begin{document}
+\bstctlcite{IEEEexample:BSTcontrol}
+\maketitle
+\begin{abstract}
+Conversational timing (CTD) describes a clinical interview as a dyadic exchange, but its predictive information may depend on interview structure and interviewer behavior. We examine established timing descriptors using nested controls, original-split sensitivity analyses, and a second-corpus boundary study. On DAIC-WOZ, full CTD has mean nested macro-F1 \R{all24Fmean}, compared with \R{latency_structureFmean} for latency plus interview structure; removing ask-side features lowers it to \R{no_askFmean}. CTD carries information beyond these simple controls, with sensitivity to interviewer features and evaluation protocol. Recorded text--CTD fusion gains are statistically inconclusive. PDCH provides boundary evidence, with no reliable within-corpus discrimination. These findings bound the empirical scope of timing-based depression screening.
+\end{abstract}
+\begin{keywords}
+depression screening, conversational timing, turn-taking, evaluation protocol
+\end{keywords}
+
+\section{Introduction}
+Speech-based depression screening is studied as a low-cost complement to clinical assessment~\cite{valstar2016avec,cummins2015review}. Most systems model acoustic characteristics or lexical content. A clinical interview is also a dyadic interaction: an interviewer asks and a participant responds. Response delays, within-turn pauses, and turn durations describe when the exchange unfolds~\cite{yamamoto2020timing,aldeneh2019mood}.
+
+Timing is jointly produced by both interlocutors. Interviewer prompts, session length, population, and annotation procedures can influence the same descriptors. The key empirical question is how much information timing carries beyond simple latency and interview structure, and how that information depends on interviewer features and evaluation protocol.
+
+We study conversational temporal dynamics (CTD), adopting \R{all24Dim} established turn-pair descriptors~\cite{chou2019joint,chou2021automatic}. Our contribution has three parts: (i) nested DAIC-WOZ comparisons against simple controls, showing higher mean scores for full CTD and sensitivity to ask-side removal; (ii) original-split ablations that expose protocol sensitivity, alongside statistically inconclusive recorded fusion gains; and (iii) a PDCH boundary analysis with no reliable within-corpus discrimination (Section~\ref{sec:pdch}). The repository documents the analysis pipeline.\footnote{\small\href{https://anonymous.4open.science/r/depression-detection-ctd/README.md}{\nolinkurl{anonymous.4open.science/r/depression-detection-ctd}}}
+
+\section{Related Work}
+Timing has substantial precedent: Aldeneh et al.~\cite{aldeneh2019mood} study dyadic turn-taking for mood episodes, and Fushimi et al.~\cite{fushimi2026beyond} study session-level utterance, pause, and response intervals for depression detection. Chou et al.~\cite{chou2019joint,chou2021automatic} introduce the turn-pair descriptors adopted here in deception detection. Our contribution concerns their empirical scope rather than feature novelty. Interviewer-prompt shortcuts on DAIC-WOZ~\cite{burdisso2024prompts} motivate explicit structure controls. For context, Agarwal et al.~\cite{agarwal2024discourse} report test macro-F1 \R{agarwalTest} on the official split using both speakers' text, but their preprocessing and modeling differ and the method is not rerun here, preventing a matched-protocol comparison.
+
+\section{Data and Timing Representation}
+\subsection{Corpora and integrity}
+DAIC-WOZ~\cite{gratch2014daic} contains English interviews with Ellie, a human-controlled virtual interviewer, and self-reported PHQ-8 scores~\cite{kroenke2009phq8}. We predict PHQ-8 $\geq\R{phqCutoff}$, a screening label rather than a diagnosis. From the official \R{officialN} sessions, our integrity policy excludes \R{excludedN} sessions with timestamp problems, interruptions, or missing interviewer turns documented by the upstream preprocessing resource~\cite{baileyDaicProcessing}. Session \R{correctedSession} is retained with its binary label corrected to agree with its PHQ-8 score of \R{phqCutoff}. The cleaned cohort is \R{trainN}/\R{devN}/\R{testN} train/dev/test, with \R{trainPositive}/\R{devPositive}/\R{testPositive} positive labels; no subject changes official partition.
+
+PDCH~\cite{cao2025pdch} comprises Mandarin clinician-led consultations with HAMD-17 ratings~\cite{hamilton1960rating}. We use \R{pdchN} labeled sessions from \R{pdchSubjects} subjects, including \R{pdchRepeated} with repeated sessions. The study-specific target HAMD-17 $\geq\R{hamdCutoff}$ gives \R{pdchPositive} positives; continuous severity is analyzed separately. PHQ-8 and HAMD-17 are never pooled. Chunk stitching and monaural voice-activity detection refine PDCH's \R{annotationSeconds}\,s turn annotations; timing accuracy against manual speaker boundaries remains unvalidated. Overlap counts \texttt{ask\_bt} and \texttt{res\_bt} are structurally constant under this pipeline, leaving \R{liveDim} measurable coordinates for the association audit.
+
+\subsection{Fixed CTD descriptors}
+Alternating interviewer (Ask) and participant (Res) runs form consecutive turn pairs. For each side, $d$ spans first onset to last offset, $u$ sums utterance durations, and $s=d-u$ describes internal gaps; $u$ is an annotation-based speech-activity proxy. The descriptor bank includes both turn durations, their differences, sum and reciprocal ratios; all ordered quotients among $d,u,s$ for each side; response latency \texttt{res\_h} from Ask-end to Res-start; overlap counts; and within-turn gap counts, using \R{silenceSeconds}\,s on DAIC-WOZ. Undefined ratios remain missing until model fitting.
+
+We average each descriptor over session turn pairs. Fixed groups contain \R{ask_onlyDim} ask-side, \R{crossDim} cross-speaker, and \R{res_onlyDim} response-internal coordinates. No-ask retains cross-speaker coordinates that still use interviewer timing. Algebraic dependence, e.g., $u/d+s/d=\R{unitSum}$, yields observed centered rank \R{rankLive} for the \R{liveDim} shared live coordinates on both corpora. Nonlinear ratio means can still describe different properties of the turn distribution; this rank observation does not define a reduced feature model.
+
+\section{Evaluation Protocol}
+\subsection{Nested timing controls and original-split sensitivity}
+CTD uses median imputation, standardization, and class-balanced $L_2$ logistic regression, with $C$ selected by balanced accuracy from \R{cGrid}. The decision threshold is \R{threshold}. The exploratory timing-control protocol, specified after prior benchmark inspection, uses only \R{nestedN} DAIC train+dev subjects: \R{outerFolds} outer folds, \R{innerFolds} inner folds, and \R{nestedRepeats} matched repeats across configurations. Inner folds select $C$ and preprocessing is fitted within training folds. Controls are latency alone, structure alone (log session span and log of one plus turn-pair count), and their combination. Out-of-fold predictions are pooled within each repeat; repeats share subjects, so SDs are not confidence intervals or independent-repeat significance tests.
+
+On the original cleaned split, dev balanced accuracy selects $C=\R{fitC}$ for full CTD. Each ablation reselects $C$. Dev predictions use a train-only fit and test predictions a train+dev refit, including preprocessing. Paired \R{confidence}\% intervals use \R{bootstrapN} participant bootstrap resamples~\cite{ferrer2024confidence}. They condition on fitted predictions and omit training/selection uncertainty; dev intervals additionally reuse the selection set.
+
+\subsection{Recorded neural and fusion runs}
+The acoustic probe uses frozen WavLM-large~\cite{chen2022wavlm} representations of participant utterances, with a learned layer mixture and attention pooling. The text probe mean-pools frozen RoBERTa-large~\cite{liu2019roberta} participant-turn embeddings with training-fitted standardization and a linear head; interviewer text is excluded. Checkpoints were selected by dev loss for WavLM and dev macro-F1 for RoBERTa. However, WavLM seed \R{wavlmSeed} was selected using \emph{test} macro-F1, so we retain its \R{wavlmSeeds}-seed mean. Frozen caches, selected checkpoints, and session predictions are unavailable for a fresh rerun; these rows describe recorded, probe-specific runs.
+
+Convex fusion selects nonnegative probability weights summing to one on a dev grid of step \R{weightStep}. Thresholds over \R{thresholdLow}--\R{thresholdHigh} in steps of \R{thresholdStep} maximize dev macro-F1; equal-weight fusion also tunes its threshold. RoBERTa searches candidate probabilities, whereas CTD fixes its threshold. Recorded bootstrap CIs have the same conditional interpretation as above.
+
+\subsection{PDCH and association audit}
+Within-PDCH prediction uses subject-grouped nested cross-validation, \R{outerFolds} outer and \R{innerFolds} inner folds over \R{pdchRepeats} repeats, selecting $C$ and the silence-gap threshold inside training folds. Both sessions of a subject stay together. Each model is fitted within its own corpus.
+
+Association estimates use DAIC train+dev and labeled PDCH separately. Declared families cover binary labels, continuous severity, and psychomotor items, with Benjamini--Hochberg FDR at $q=\R{fdr}$ within family and corpus; PDCH uses \R{permutations} subject-block permutations. Prior exposure includes favorable DAIC latency test results and PDCH binary associations; later pre-declaration and nested fitting do not erase that exposure.
+
+\section{Results}
+\subsection{Nested controls: information and interviewer sensitivity}
+\label{sec:controls}
+Full CTD has mean nested macro-F1 \textbf{\R{all24Fmean}}, compared with \textbf{\R{latency_structureFmean}} for latency plus structure (Fig.~\ref{fig:controls}). Removing the ask-side group lowers the mean to \textbf{\R{no_askFmean}}; AUC changes from \R{all24Amean} to \R{no_askAmean}. Thus timing information on this DAIC cohort is not exhausted by the simple controls, but is sensitive to ask-side removal. These are descriptive contrasts across dependent repeats, not significance tests.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/timing-controls.pdf}
+\caption{All declared DAIC timing-control configurations on \R{nestedN} train+dev subjects; official test subjects are excluded. Points and printed values show means, with whiskers of $\pm$SD across \R{nestedRepeats} matched repeats. \textbf{SDs are not CIs}: repeats share subjects. Full CTD has higher mean scores than latency plus structure; removing ask-side features lowers the mean scores.}
+\label{fig:controls}
+\end{figure*}
+
+Table~\ref{tab:ablation} reports original-split sensitivity: with $C$ reselected, no-ask gives dev/test macro-F1 \R{no_askDev}/\R{no_askTest}. We prioritize nested comparisons for feature-group robustness because selection occurs inside each outer training set and evaluation spans multiple partitions. The original split supplies a split-specific contrast under different training sizes and partitions: full CTD minus no-ask is \R{ablationdevpoint} [\R{ablationdevci_low},\R{ablationdevci_high}] on dev and \R{ablationtestpoint} [\R{ablationtestci_low},\R{ablationtestci_high}] on test. Both paired CIs include zero: no clear difference is detected, and equivalence is not established. The differing mean rankings indicate protocol sensitivity rather than a contradiction. Because cross-speaker features retain interviewer timing, ask-side ablation cannot remove interviewer confounding.
+
+\begin{table}[t]
+\centering
+\caption{Original cleaned split: feature-group sensitivity with $C$ reselected by dev balanced accuracy for every row. Scores are macro-F1; test comparisons revisit the same cohort.}
+\label{tab:ablation}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrr}
+\toprule
+Configuration & Dim. & $C$ & Dev & Test\\
+\midrule
+Full CTD & \R{all24Dim} & \R{all24C} & \R{all24Dev} & \R{all24Test}\\
+No ask-side & \R{no_askDim} & \R{no_askC} & \R{no_askDev} & \R{no_askTest}\\
+No cross-speaker & \R{no_crossDim} & \R{no_crossC} & \R{no_crossDev} & \R{no_crossTest}\\
+Response-internal & \R{res_onlyDim} & \R{res_onlyC} & \R{res_onlyDev} & \R{res_onlyTest}\\
+Ask-side & \R{ask_onlyDim} & \R{ask_onlyC} & \R{ask_onlyDev} & \R{ask_onlyTest}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Interviewer duration \texttt{ask\_d} has the largest train-fitted standardized coefficient, \R{ask_dcoef} [\R{ask_dci_low},\R{ask_dci_high}]; latency's is \R{res_hcoef} [\R{res_hci_low},\R{res_hci_high}]. Correlated coordinates and protocol-sensitive ablations prevent attributing the multivariate detector to one behavioral mechanism.
+
+\subsection{Original-split prediction: fusion remains inconclusive}
+Table~\ref{tab:results} preserves the recorded modality results alongside the reproduced CTD baseline. Text--CTD fusion gives test macro-F1 \R{TCTDTestpoint}, an observed increase of \R{fusionDelta} over either component's rounded \R{CTDTestpoint}. Recorded paired intervals include or touch zero; missing session predictions prevent refreshing their exact limits. The fusion gain is therefore statistically inconclusive. Equal-weight fusion gives \R{meandev}/\R{meantest} dev/test, with its threshold still selected on dev. The text probe's recorded test mean is $\R{robertaSeedmean}\pm\R{robertaSeedsd}$ over \R{robertaSeeds} seeds.
+
+\begin{table}[t]
+\centering
+\caption{Cleaned DAIC-WOZ macro-F1. Neural/fusion rows are recorded runs; CTD was reproduced. Dev is used for selection. Test brackets are \R{confidence}\% bootstrap CIs, except the final seed mean$\pm$SD. A: WavLM (test-selected seed); T: RoBERTa. Thresholds $\tau$ are rounded.}
+\label{tab:results}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lccc}
+\toprule
+System & $\tau$ & Dev & Test [CI]\\
+\midrule
+CTD & \R{CTDThreshold} & \R{CTDDev} & \R{CTDTestpoint} [\R{CTDTestci_low},\R{CTDTestci_high}]\\
+T & \R{TThreshold} & \R{TDev} & \R{TTestpoint} [\R{TTestci_low},\R{TTestci_high}]\\
+T+CTD & \R{TCTDThreshold} & \R{TCTDDev} & \R{TCTDTestpoint} [\R{TCTDTestci_low},\R{TCTDTestci_high}]\\
+Mean(T+CTD) & \R{meanThreshold} & \R{meandev} & \R{meantest}\\
+A (seed \R{wavlmSeed}) & \R{AThreshold} & \R{ADev} & \R{ATestpoint} [\R{ATestci_low},\R{ATestci_high}]\\
+\midrule
+A: \R{wavlmSeeds}-seed mean & -- & -- & $\R{wavlmSeedmean}\pm\R{wavlmSeedsd}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three-way fusion assigns A, T, and CTD weights of \R{acousticWeight}, \R{robertaWeight}, and \R{ctdWeight}, respectively, coinciding with T+CTD. Zero acoustic weight is specific to this probe, scores, threshold, and grid; it does not imply acoustic redundancy.
+
+The official \R{officialtrainN}/\R{officialdevN}/\R{officialtestN} sensitivity run restores all \R{excludedN} exclusions, retains the session-\R{correctedSession} label correction, and selects $C=\R{officialC}$. CTD gives dev/test macro-F1 \R{officialDev}/\R{officialTest} and test AUC \R{officialAuc}. The \R{noPairsN} sessions without Ask/Res pairs receive entirely missing descriptors and training-fitted median imputation; timestamp and interruption defects remain. T and T+CTD lack predictions for the restored sessions.
+
+\subsection{PDCH as a boundary}
+\label{sec:pdch}
+Within-PDCH full CTD gives macro-F1 $\R{pdchFmean}\pm\R{pdchFsd}$ and AUC $\R{pdchAmean}\pm\R{pdchAsd}$, showing no reliable discrimination. Latency--severity Spearman correlations are weak and directionally consistent: DAIC $\rho=\R{daicLatencyr}$ ($q=\R{daicLatencyq}$), PDCH $\rho=\R{pdchLatencyr}$ ($q=\R{pdchLatencyq}$, failing FDR). In the binary family, \R{binaryHits} features pass FDR in both corpora; signs agree for \R{signAgree}/\R{liveDim}, near chance descriptively, and PDCH's max-$|r|$ permutation test gives $p=\R{maxBinaryP}$. Language, instrument, population, interviewer, and timing measurement differ, preventing attribution of this boundary to one factor.
+
+For latency, DAIC's \texttt{PHQ8\_Moving} item is also inconclusive ($\rho=\R{movingLatencyr}$, $q=\R{movingLatencyq}$). This self-report item combines slowing and restlessness, limiting psychomotor interpretation. PDCH item exploration is not promoted as validation.
+
+In a sensitivity analysis, we drew \R{powerN} subsamples from all \R{cleanN} cleaned DAIC sessions, matching PDCH's session count and prevalence. Mean macro-F1 was $\R{powerFmean}\pm\R{powerFsd}$ and AUC $\R{powerAmean}\pm\R{powerAsd}$. PDCH's macro-F1 lay at the \R{powerFpercentile}th percentile; its AUC fell below all sampled values. Repeated-subject structure is not matched, and repeat count and silence-threshold selection differ. This is not a formal power analysis and cannot identify sample size or a particular corpus factor as the cause of the PDCH result. Matching and within-fold length residualization did not recover discrimination; neither check rules out confounding.
+
+\section{Discussion and Conclusion}
+CTD carries information on DAIC-WOZ beyond simple latency and interview-structure controls, but that information is sensitive to interviewer features and evaluation protocol. Fusion gains are observed but statistically inconclusive; PDCH supplies a boundary with no reliable discrimination (Section~\ref{sec:pdch}). These results support neither detector transfer nor construct validation nor a reliable multimodal advantage.
+
+The priority is to test the scope of the DAIC evidence. Nested text, text+CTD, text+no-ask, and text+simple-controls comparisons remain unrun because frozen embeddings are missing. Stronger text/acoustic probes, independent timing-boundary annotation, and fresh disjoint participants would address the main limits. E-DAIC is a possible future resource requiring speaker and overlap checks. Subgroup performance and clinical deployment are unvalidated.
+
+\section{Compliance with Ethical Standards}
+This is secondary analysis of existing DAIC-WOZ and PDCH interviews, with no new participant recruitment. Original data collection and consent procedures are described by the corpus authors~\cite{gratch2014daic,cao2025pdch}.
+% AUTHOR CHECK BEFORE SUBMISSION: confirm institutional approval/waiver or
+% data-use basis, plus funding and conflicts. No unknown approval is asserted.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references_official}
+\end{document}

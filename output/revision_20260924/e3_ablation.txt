@@ -1,0 +1,18 @@
+Running config 'all24' (24 features)...
+Running config 'no_ask' (15 features)...
+Running config 'res_only' (8 features)...
+Running config 'ask_only' (9 features)...
+Running config 'no_cross' (17 features)...
+
+=== Ablation summary (LogReg L2, identical deployed protocol) ===
+config       n      C  dev bAcc   dev F1 |  test bAcc   test F1
+all24       24    0.3     0.756    0.746 |      0.641     0.631
+no_ask      15    1.0     0.839    0.814 |      0.660     0.641
+res_only     8    1.0     0.607    0.607 |      0.517     0.517
+ask_only     9   0.01     0.595    0.594 |      0.608     0.593
+no_cross    17    0.1     0.696    0.700 |      0.540     0.527
+
+No clear difference detected: the 'all24' vs 'no_ask' macro-F1 paired bootstrap 95% CI includes zero on dev and test. This does not establish equivalence or remove interviewer confounding.
+
+Saved -> /home/exouser/projects/depression-detection-ctd/output/ctd_ablation_groups.json
+Saved -> /home/exouser/projects/depression-detection-ctd/output/ctd_ablation_groups.md

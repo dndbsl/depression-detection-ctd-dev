@@ -1,0 +1,25 @@
+/home/exouser/.venvs/ctd/lib/python3.10/site-packages/webrtcvad.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+Loading DAIC-WOZ session table...
+  180 sessions (102/33/45)
+Loading PDCH session table (VAD cache -> features at 0.2 s)...
+  100 sessions with features; 62 labelled across 46 subjects
+E0: inventory and distribution shift...
+E2: univariate concordance map (F1)...
+  verdicts: {'confirmed_shared': 0, 'opposite_sign': 0, 'daic_only': 1, 'pdch_only': 0, 'null': 21, 'weak_concordant': 1}
+E1: confound checks (matching, residualization, power calibration)...
+/home/exouser/.venvs/ctd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:2801: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/home/exouser/.venvs/ctd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:2801: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/home/exouser/.venvs/ctd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:2801: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/home/exouser/.venvs/ctd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:2801: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/home/exouser/.venvs/ctd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:2801: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+E4: secondary targets (F2, F3, F4)...
+E3: candidate detectors...
+  run
+Saved -> /home/exouser/projects/depression-detection-ctd/output/shared_signal_audit.json
+Saved -> /home/exouser/projects/depression-detection-ctd/output/shared_signal_audit.md

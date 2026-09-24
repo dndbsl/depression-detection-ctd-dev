@@ -1,0 +1,1 @@
+Rendered paper/figures/timing-controls.pdf: 10 mean/SD labels from unchanged result artifact.

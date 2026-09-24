@@ -61,5 +61,31 @@ timing anchors; their lexical content never enters any detector.
 | `functionals.py` | 10-operator eGeMAPS functional bank (robustness variant) |
 | `ml_splits.py` | Canonical train/dev/test protocol + both detectors |
 | `bags.py` | Per-session bags of raw per-turn features (used by `src/fusion/extract_ctd_roberta.py`) |
+| `feature_groups.py` | Ask/Cross/Res grouping of the 24 features; named ablation configs (`all24`, `no_ask`, `res_only`, `ask_only`, `no_cross`) |
+| `interpret.py` | SLT-04: bootstrap coefficients, dev permutation importance, per-split univariate direction, collinearity diagnostic |
+| `ablation_groups.py` | SLT-05: ask-side ablation through the identical deployed protocol, paired-bootstrap verdict |
+| `resampling.py` | SLT-10: variability via repeated data resampling (not seeds — the fit is deterministic) |
+| `pdch_adapter.py` | MC-01/MC-05/MC-06: PDCH backend — chunk stitching, VAD refinement, `list[Utterance]` |
+| `pdch_labels.py` | MC-07: HAMD-17 ≥ 17 label + severity target (never pooled with PHQ-8) |
+| `pdch_features.py` | PDCH session-level CTD features via the unmodified DAIC-WOZ feature code |
+| `pdch_experiment.py` | MC-08: subject-grouped nested CV over the five tiers + the pre-registered P1–P6 check |
+| `shared_signal_audit.py` | SLT-01/SLT-03: cross-corpus shared-signal audit (E0–E4) — distribution shift, confound matching and within-fold residualization, the univariate concordance map, candidate detectors, and continuous/item-level targets |
 
-Outputs are written to `outputs/` (git-ignored; regenerable).
+Outputs are written to `outputs/` (git-ignored; regenerable) for cached
+intermediates, and to `../../output/` for the paper-facing
+`ctd_interpretability.*`, `ctd_ablation_groups.*`, `ctd_resampling.*` results.
+
+Run after the reproduction gate:
+
+```bash
+python interpret.py          # -> ../../output/ctd_interpretability.{json,md}, ctd_coef_forest.png
+python ablation_groups.py    # -> ../../output/ctd_ablation_groups.{json,md}
+python resampling.py         # -> ../../output/ctd_resampling.{json,md}
+python pdch_experiment.py    # -> ../../output/pdch_ctd_results.{json,md}   (needs scripts/build_pdch_cache.py first)
+python shared_signal_audit.py  # -> ../../output/shared_signal_audit.{json,md}
+```
+
+`shared_signal_audit.py` runs the family pre-declared in
+`docs/exploratory-shared-signal-pdch-daic.md`; its conclusions are in
+`docs/shared-signal-audit.md`. It reads DAIC-WOZ's cached `outputs/functionals_*.csv`,
+so run `ml_splits.py` first.

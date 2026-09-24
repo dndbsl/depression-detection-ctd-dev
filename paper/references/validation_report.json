@@ -1,0 +1,163 @@
+{
+  "reference_count": 17,
+  "control_entry_count": 1,
+  "total_entries": 18,
+  "duplicate_keys": [],
+  "format_errors": [],
+  "manuscript_cited_count": 17,
+  "missing_citation_keys": [],
+  "unexpected_reference_keys": [],
+  "control_valid": true,
+  "control_before_first_citation": true,
+  "style_directive_correct": true,
+  "database_directive_correct": true,
+  "url_package_present": true,
+  "bibtex_syntax_check": "passed: actual BibTeX 0.99e run with IEEEtran.bst v1.14",
+  "standalone_full_latex_compilation": "passed",
+  "standalone_bibtex_warnings": [],
+  "standalone_latex_warnings": [],
+  "standalone_box_diagnostics": [
+    "Underfull \\hbox (badness 1337) in paragraph at lines 36--37",
+    "Underfull \\hbox (badness 1314) in paragraph at lines 60--61",
+    "Underfull \\hbox (badness 3623) in paragraph at lines 60--61",
+    "Underfull \\hbox (badness 1406) in paragraph at lines 72--73",
+    "Underfull \\hbox (badness 3098) in paragraph at lines 72--73"
+  ],
+  "generated_bibliography_reference_count": 17,
+  "author_output_checks": {
+    "valstar2016avec": {
+      "database_author_count": 10,
+      "first_author_plus_etal": true,
+      "author_rule_pass": true
+    },
+    "cummins2015review": {
+      "database_author_count": 6,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "yamamoto2020timing": {
+      "database_author_count": 9,
+      "first_author_plus_etal": true,
+      "author_rule_pass": true
+    },
+    "aldeneh2019mood": {
+      "database_author_count": 5,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "burdisso2024prompts": {
+      "database_author_count": 6,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "agarwal2024discourse": {
+      "database_author_count": 3,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "gratch2014daic": {
+      "database_author_count": 13,
+      "first_author_plus_etal": true,
+      "author_rule_pass": true
+    },
+    "cao2025pdch": {
+      "database_author_count": 17,
+      "first_author_plus_etal": true,
+      "author_rule_pass": true
+    },
+    "ferrer2024confidence": {
+      "database_author_count": 2,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "chen2022wavlm": {
+      "database_author_count": 19,
+      "first_author_plus_etal": true,
+      "author_rule_pass": true
+    },
+    "liu2019roberta": {
+      "database_author_count": 10,
+      "first_author_plus_etal": true,
+      "author_rule_pass": true
+    },
+    "chou2021automatic": {
+      "database_author_count": 3,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "chou2019joint": {
+      "database_author_count": 3,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "fushimi2026beyond": {
+      "database_author_count": 4,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "kroenke2009phq8": {
+      "database_author_count": 6,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "hamilton1960rating": {
+      "database_author_count": 1,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    },
+    "baileyDaicProcessing": {
+      "database_author_count": 1,
+      "first_author_plus_etal": false,
+      "author_rule_pass": true
+    }
+  },
+  "printed_url_targets": [
+    "https://github.com/luferrer/ConfidenceIntervals",
+    "https://github.com/adbailey1/daic_woz_process/blob/380372c5e8ef342bd3811342b838cbb610afda10/README.md"
+  ],
+  "ordinary_url_suppression_pass": true,
+  "arxiv_identifier_visible": true,
+  "compound_surname_preserved": true,
+  "mdpi_article_identifier_visible": true,
+  "phq_combined_issue_visible": true,
+  "phq_all_initials_visible": true,
+  "original_export_hashes_match": true,
+  "manuscript_citation_keys_unchanged": true,
+  "full_manuscript_compilation": "passed: LaTeX and BibTeX produced a five-page PDF with all 17 citations resolved.",
+  "full_manuscript_unresolved_citation_keys": [],
+  "full_manuscript_box_diagnostics": [
+    "Underfull \\hbox (badness 10000) in paragraph at lines 32--32",
+    "Underfull \\hbox (badness 2393) in paragraph at lines 32--33",
+    "Underfull \\hbox (badness 2529) in paragraph at lines 36--37",
+    "Underfull \\hbox (badness 3965) in paragraph at lines 36--37",
+    "Underfull \\hbox (badness 1655) in paragraph at lines 36--37",
+    "Underfull \\hbox (badness 2478) in paragraph at lines 45--46",
+    "Underfull \\hbox (badness 1097) in paragraph at lines 57--58",
+    "Underfull \\hbox (badness 4096) in paragraph at lines 57--58",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 57--58",
+    "Underfull \\hbox (badness 2213) in paragraph at lines 66--67",
+    "Underfull \\hbox (badness 7081) in paragraph at lines 66--67"
+  ],
+  "full_manuscript_pdf": "validation/main.pdf",
+  "full_manuscript_page_count": 5,
+  "full_manuscript_clean_build": true,
+  "preview_pdf": "validation/bibliography-check.pdf",
+  "additional_supplied_entry": {
+    "key": "bailey2021gender",
+    "included_in_combined": false,
+    "reason": "Related conference paper is a different cited object from baileyDaicProcessing."
+  },
+  "working_snapshot_syntax_check": "passed: all 18 key-named working files parsed; 17 active entries also passed actual BibTeX",
+  "source_supplied_reference_count": 16,
+  "authorized_manual_reference_count": 1,
+  "webpage_url_visible": true,
+  "webpage_version_date_visible": true,
+  "webpage_access_date_visible": true,
+  "manual_webpage_source_hashes_match": true,
+  "full_manuscript_bibtex_warnings": [],
+  "full_manuscript_latex_warnings": [],
+  "full_manuscript_clean_build_scope": "No BibTeX errors/warnings or LaTeX citation warnings; underfull-line layout diagnostics remain.",
+  "webpage_acronym_capitalization_pass": true,
+  "repeated_author_dashes_disabled": true,
+  "reference_6_full_author_list_verified": true
+}

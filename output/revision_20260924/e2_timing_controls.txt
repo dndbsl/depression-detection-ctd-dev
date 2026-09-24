@@ -1,0 +1,19 @@
+/home/exouser/.venvs/ctd/lib/python3.10/site-packages/webrtcvad.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+Evaluating all24: 24 features
+Evaluating no_ask: 15 features
+Evaluating latency: 1 features
+Evaluating structure: 2 features
+Evaluating latency_structure: 3 features
+# Exploratory timing controls (DAIC train+dev only)
+
+135 subjects; 5 outer × 4 inner folds, 10 paired repeats. Mean ± SD across repeats; SD is not a confidence interval. No official test data used. See `docs/timing-controls-protocol.md`.
+
+| Configuration | Macro-F1 | ROC-AUC |
+|---|---:|---:|
+| all24 | 0.635 ± 0.026 | 0.676 ± 0.031 |
+| no_ask | 0.566 ± 0.025 | 0.610 ± 0.030 |
+| latency | 0.531 ± 0.008 | 0.562 ± 0.015 |
+| structure | 0.499 ± 0.020 | 0.535 ± 0.027 |
+| latency_structure | 0.550 ± 0.025 | 0.576 ± 0.029 |
+

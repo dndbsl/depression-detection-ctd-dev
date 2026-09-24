@@ -1,0 +1,41 @@
+{
+  "protocol": "100x repeated stratified-group resampling of train+dev (StratifiedGroupKFold, n_splits=4, group=session_id); refit on resampled train, select C on resampled held-out portion (dev balanced accuracy); refit on full train+dev with that C, evaluate once on the untouched real test set.",
+  "held_out_metrics_over_repeats": {
+    "balanced_accuracy": {
+      "mean": 0.6478661411962899,
+      "sd": 0.07429812755284679
+    },
+    "macro_f1": {
+      "mean": 0.6302730757708328,
+      "sd": 0.06921232362391616
+    },
+    "roc_auc": {
+      "mean": 0.6785951078076937,
+      "sd": 0.07337417764695368
+    }
+  },
+  "hyperparameter_stability": {
+    "selected_C_counts": {
+      "0.01": 20,
+      "0.03": 9,
+      "0.1": 26,
+      "0.3": 19,
+      "1.0": 26
+    },
+    "modal_C": [
+      0.1,
+      1.0
+    ],
+    "modal_C_fraction": 0.26,
+    "note": "Deployed model uses C=0.3, selected on the single official dev split. If a different C is modal here, C=0.3 should be reported as one plausible choice among several rather than uniquely optimal."
+  },
+  "head_to_head_vs_roberta": {
+    "roberta_test_macro_f1": 0.631,
+    "ctd_test_macro_f1_over_repeats": {
+      "mean": 0.6114968792825544,
+      "sd": 0.03126478243664752
+    },
+    "fraction_repeats_ctd_beats_roberta": 0.0
+  },
+  "seed_variance_note": "Not reported: the CTD pipeline (SimpleImputer(median) -> StandardScaler -> LogisticRegression(lbfgs)) is a deterministic convex fit, so seed variance is exactly 0.000 for a fixed data split. Data resampling above answers the variability question rwao intended by analogy with the neural baselines' seed sweep."
+}

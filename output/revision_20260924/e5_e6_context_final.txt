@@ -1,0 +1,8 @@
+{
+  "matches": [],
+  "E6": {
+    "status": "scoped_out",
+    "reason": "No raw frozen RoBERTa cache, encoder weights, checkpoint, or predictions found. Downloading the large encoder and rebuilding raw embeddings and nested heads is beyond this bounded CPU revision; aggregate metrics cannot support nested fusion.",
+    "nested_results": null
+  }
+}

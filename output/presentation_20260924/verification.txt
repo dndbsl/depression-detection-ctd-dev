@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "gate_md5": "ca0b9cb2dd4c799b3a7c12532ceafd7e",
+  "unique_manuscript_number_keys": 137,
+  "unique_figure_number_keys": 20,
+  "unique_paper_number_keys": 152,
+  "scientific_source_files_unchanged": true,
+  "recorded_neural_artifacts_unchanged": true,
+  "all_prior_scientific_artifacts_unchanged": true,
+  "exact_display_strings_verified": true,
+  "no_unused_tex_macros": true
+}

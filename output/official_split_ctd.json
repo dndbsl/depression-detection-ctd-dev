@@ -1,0 +1,68 @@
+{
+  "protocol": "All official sessions; PHQ-8 >=10 including corrected session 409; unchanged 24 CTD means; median imputation and scaling fitted on train; C in 0.01/0.03/0.1/0.3/1.0 selected by dev balanced accuracy; threshold 0.5; train+dev refit for test.",
+  "cohort": {
+    "train": {
+      "n": 107,
+      "n_positive": 31,
+      "integrity_exclusions_restored": 5
+    },
+    "dev": {
+      "n": 35,
+      "n_positive": 12,
+      "integrity_exclusions_restored": 2
+    },
+    "test": {
+      "n": 47,
+      "n_positive": 14,
+      "integrity_exclusions_restored": 2
+    }
+  },
+  "sessions_without_turn_pairs": {
+    "train": [],
+    "dev": [
+      451,
+      458
+    ],
+    "test": [
+      480
+    ]
+  },
+  "missing_feature_policy": "All 24 coordinates missing for no-pair sessions; use training-fitted feature medians. No reconstructed interviewer turns.",
+  "cleaning_caveat": "Nine integrity exclusions restored, including missing interviewer turns and timestamp problems. Results do not establish measurement quality or a matched published-baseline comparison.",
+  "neural_scope": "T and T+CTD cannot be evaluated for the official cohort: frozen caches, selected checkpoints and per-session predictions are unavailable.",
+  "result": {
+    "selected_C": 1.0,
+    "dev": {
+      "balanced_accuracy": 0.7880434782608696,
+      "macro_f1": 0.7822222222222222,
+      "f1_depressed": 0.72,
+      "roc_auc": 0.8695652173913044,
+      "accuracy": 0.8
+    },
+    "test": {
+      "balanced_accuracy": {
+        "point": 0.6493506493506493,
+        "ci_low": 0.49424534204671855,
+        "ci_high": 0.7922077922077921
+      },
+      "macro_f1": {
+        "point": 0.6390168970814132,
+        "ci_low": 0.48231884057971014,
+        "ci_high": 0.774904214559387
+      },
+      "f1_depressed": {
+        "point": 0.5161290322580645,
+        "ci_low": 0.27586206896551724,
+        "ci_high": 0.7059772296015175
+      },
+      "roc_auc": {
+        "point": 0.6536796536796537,
+        "ci_low": 0.4603943452380952,
+        "ci_high": 0.8270656370656367
+      },
+      "accuracy": {
+        "point": 0.6808510638297872
+      }
+    }
+  }
+}

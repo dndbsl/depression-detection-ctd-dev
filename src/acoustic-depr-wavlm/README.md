@@ -18,7 +18,10 @@ transcript -> utterance tokenization/cleaning (preprocess.py)
 - Transcript `data/{id}_P/{id}_TRANSCRIPT.csv` is tab-separated (`start_time stop_time speaker value`).
 - Labels: train/dev `*_split_Depression_AVEC2017.csv`; test `full_test_split.csv`
   (columns `PHQ_Binary`/`PHQ_Score` are renamed to `PHQ8_Binary`/`PHQ8_Score`).
-- Excluded sessions: `{318, 321, 341, 362, 451, 458, 480, 373, 444, 409}`.
+- Ten sessions with documented integrity issues, out of 189: nine excluded
+  (`{318, 321, 341, 362, 451, 458, 480, 373, 444}`) and one relabeled
+  (`409`: PHQ-8 score 10 but binary label 0 in the official file — corrected
+  and kept). See `common/daic_cleaning.py::KNOWN_ERRORS`.
 - Only `speaker == "Participant"` rows; drop utterances < 100 ms or empty text.
 
 ## Setup

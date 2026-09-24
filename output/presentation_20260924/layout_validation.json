@@ -1,0 +1,18 @@
+{
+  "pdf_pages": 5,
+  "technical_content_within_first_four_pages": true,
+  "fifth_page_references_only": true,
+  "latex_undefined_or_overfull_warnings": [],
+  "all_figure_labels_verified_in_pdf_text": true,
+  "all_fonts_embedded": true,
+  "no_type3_fonts": true,
+  "figure_count": 1,
+  "table_count": 2,
+  "pdch_full_evidence_list_once": true,
+  "results_leads_with_nested_controls": true,
+  "scientific_files_and_artifacts_checked": 95,
+  "scientific_files_and_artifacts_unchanged": true,
+  "tests": "31 passed in 15.04s",
+  "main_pdf_sha256": "d473e0b0dd9fa22b270ac28e9650bf0f2a7782f202515db799e30d83bd03afa7",
+  "figure_pdf_sha256": "3c9723c2d69351747cd79c16bc1315537e6e9000cf063dae1e6bdf739e242e6a"
+}
