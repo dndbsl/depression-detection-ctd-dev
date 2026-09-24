@@ -31,6 +31,19 @@ paper/**/*.pdf
 paper/**/*.zip
 # Keep source figures (png/svg/pdf under figures/ if needed later via negation)
 !paper/figures/**/*.pdf
+# Keep the reviewed manuscript PDF; auxiliary PDFs remain local.
+!paper/main.pdf
+
+# Bibliography backups and regenerable validation output stay local.
+# Retain the validation source, canonical database, original exports and reports.
+paper/references/archive/
+paper/references/validation/*
+!paper/references/validation/bibliography-check.tex
+# Citation-download diagnostics and publisher JavaScript are local scratch files.
+# The small public owner record supports the manually authored webpage citation.
+paper/references/evidence/*
+!paper/references/evidence/bailey-owner.profile.json
+
 # IEEE template docs / unused bib dumps from Overleaf export
 paper/IEEEtran_HOWTO.pdf
 paper/IEEEabrv.bib

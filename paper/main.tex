@@ -1,19 +1,21 @@
-% ICASSP 2027: official spconf / IEEEbib; four content pages plus references.
+% ICASSP 2027: spconf layout; requested IEEEtran bibliography style.
 \documentclass{article}
 \usepackage{spconf,amsmath,amssymb,graphicx,hyperref}
-\usepackage{booktabs,url,orcidlink}
+\usepackage{booktabs,url}
+% spconf/article does not define IEEEtran's bibliography control command.
+\makeatletter
+\providecommand{\bstctlcite}[1]{\@bsphack\if@filesw
+  \immediate\write\@auxout{\string\citation{#1}}\fi\@esphack}
+\makeatother
 \hypersetup{hidelinks}
 \input{generated-numbers}
 \title{Can Conversational Temporal Dynamics Improve Depression Detection in Dyads? A Preliminary Investigation in Multi-Modality Perspectives}
-\name{\begin{tabular}{@{}c@{}}Hanie Kang\scalebox{0.75}{\orcidlink{0009-0005-8023-9672}}\textsuperscript{1},
-Anisha Pattanayak\scalebox{0.75}{\orcidlink{0009-0005-2556-4472}}\textsuperscript{2},
-Huang-Cheng Chou\scalebox{0.75}{\orcidlink{0000-0003-2125-5689}}\textsuperscript{3},
-Sudarsana Reddy Kadiri\scalebox{0.75}{\orcidlink{0000-0001-5806-3053}}\textsuperscript{3}\end{tabular}}
-\address{\textsuperscript{1}Thomas Lord Department of Computer Science, University of Southern California, USA\\
-\textsuperscript{2}Ming Hsieh Department of Electrical and Computer Engineering, University of Southern California, USA\\
-\textsuperscript{3}Signal Analysis and Interpretation Laboratory (SAIL), University of Southern California, USA}
+% Blind review: restore real names/affiliations for camera-ready.
+\name{Anonymous Authors}
+\address{Anonymous Affiliation}
 
 \begin{document}
+\bstctlcite{IEEEexample:BSTcontrol}
 \maketitle
 \begin{abstract}
 Conversational timing (CTD) describes a clinical interview as a dyadic exchange, but its predictive information may depend on interview structure and interviewer behavior. We examine established timing descriptors using nested controls, original-split sensitivity analyses, and a second-corpus boundary study. On DAIC-WOZ, full CTD has mean nested macro-F1 \R{all24Fmean}, compared with \R{latency_structureFmean} for latency plus interview structure; removing ask-side features lowers it to \R{no_askFmean}. CTD carries information beyond these simple controls, with sensitivity to interviewer features and evaluation protocol. Recorded text--CTD fusion gains are statistically inconclusive. PDCH provides boundary evidence, with no reliable within-corpus discrimination. These findings bound the empirical scope of timing-based depression screening.
@@ -27,7 +29,7 @@ Speech-based depression screening is studied as a low-cost complement to clinica
 
 Timing is jointly produced by both interlocutors. Interviewer prompts, session length, population, and annotation procedures can influence the same descriptors. The key empirical question is how much information timing carries beyond simple latency and interview structure, and how that information depends on interviewer features and evaluation protocol.
 
-We study conversational temporal dynamics (CTD), adopting \R{all24Dim} established turn-pair descriptors~\cite{chou2019joint,chou2021automatic}. Our contribution has three parts: (i) nested DAIC-WOZ comparisons against simple controls, showing higher mean scores for full CTD and sensitivity to ask-side removal; (ii) original-split ablations that expose protocol sensitivity, alongside statistically inconclusive recorded fusion gains; and (iii) a PDCH boundary analysis with no reliable within-corpus discrimination (Section~\ref{sec:pdch}). The repository documents the analysis pipeline.\footnote{\small\href{https://github.com/dndbsl/depression-detection-ctd}{\nolinkurl{github.com/dndbsl/depression-detection-ctd}}}
+We study conversational temporal dynamics (CTD), adopting \R{all24Dim} established turn-pair descriptors~\cite{chou2019joint,chou2021automatic}. Our contribution has three parts: (i) nested DAIC-WOZ comparisons against simple controls, showing higher mean scores for full CTD and sensitivity to ask-side removal; (ii) original-split ablations that expose protocol sensitivity, alongside statistically inconclusive recorded fusion gains; and (iii) a PDCH boundary analysis with no reliable within-corpus discrimination (Section~\ref{sec:pdch}). The repository documents the analysis pipeline.\footnote{\small\href{https://anonymous.4open.science/r/depression-detection-ctd/README.md}{\nolinkurl{anonymous.4open.science/r/depression-detection-ctd}}}
 
 \section{Related Work}
 Timing has substantial precedent: Aldeneh et al.~\cite{aldeneh2019mood} study dyadic turn-taking for mood episodes, and Fushimi et al.~\cite{fushimi2026beyond} study session-level utterance, pause, and response intervals for depression detection. Chou et al.~\cite{chou2019joint,chou2021automatic} introduce the turn-pair descriptors adopted here in deception detection. Our contribution concerns their empirical scope rather than feature novelty. Interviewer-prompt shortcuts on DAIC-WOZ~\cite{burdisso2024prompts} motivate explicit structure controls. For context, Agarwal et al.~\cite{agarwal2024discourse} report test macro-F1 \R{agarwalTest} on the official split using both speakers' text, but their preprocessing and modeling differ and the method is not rerun here, preventing a matched-protocol comparison.
@@ -140,6 +142,6 @@ This is secondary analysis of existing DAIC-WOZ and PDCH interviews, with no new
 % AUTHOR CHECK BEFORE SUBMISSION: confirm institutional approval/waiver or
 % data-use basis, plus funding and conflicts. No unknown approval is asserted.
 
-\bibliographystyle{IEEEbib}
-\bibliography{references}
+\bibliographystyle{IEEEtran}
+\bibliography{references_official}
 \end{document}

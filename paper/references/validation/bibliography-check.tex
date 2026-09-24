@@ -1,0 +1,13 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\makeatletter
+\providecommand{\bstctlcite}[1]{\@bsphack\if@filesw
+  \immediate\write\@auxout{\string\citation{#1}}\fi\@esphack}
+\makeatother
+\begin{document}
+\bstctlcite{IEEEexample:BSTcontrol}
+\nocite{*}
+\bibliographystyle{IEEEtran}
+\bibliography{references_official}
+\end{document}

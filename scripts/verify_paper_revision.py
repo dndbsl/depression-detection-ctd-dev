@@ -50,7 +50,7 @@ def main():
     # All scientific results and protocol numerals must be ledger macros. Exempt
     # instrument names, author ORCIDs/affiliations, model notation and citations.
     body=tex.split(r'\begin{abstract}',1)[1]
-    stripped=re.sub(r'\\R\{[^}]+\}|\\(?:cite|label|ref|url|href)\{[^}]+\}', '', body)
+    stripped=re.sub(r'\\R\{[^}]+\}|\\(?:cite|label|ref|url|nolinkurl|href)\{[^}]+\}', '', body)
     stripped=stripped.replace('PHQ-8','').replace('HAMD-17','').replace('PHQ8','').replace('L_2','')
     stripped=re.sub(r'%[^\n]*','',stripped)
     stripped=re.sub(r'\\setlength\{\\tabcolsep\}\{[^}]+\}', '', stripped)

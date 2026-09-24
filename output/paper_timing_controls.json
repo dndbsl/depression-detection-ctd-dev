@@ -7,7 +7,7 @@
   "n_subjects": 135,
   "n_repeats": 10,
   "figure": "paper/figures/timing-controls.pdf",
-  "figure_sha256": "3c9723c2d69351747cd79c16bc1315537e6e9000cf063dae1e6bdf739e242e6a",
+  "figure_sha256": "6b73262c27e85b145b5d02e5e29ba9f190821b279952738cd1562a6cabeb44ba",
   "number_keys": [
     "all24Fmean",
     "all24Fsd",
